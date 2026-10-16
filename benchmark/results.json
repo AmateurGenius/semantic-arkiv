@@ -1,0 +1,444 @@
+{
+  "summary": {
+    "prompts": 10,
+    "baselineIsSimulated": true,
+    "guidanceBytes": {
+      "bytes": 52534,
+      "files": [
+        "arkiv/SKILL.md",
+        "arkiv-query/SKILL.md",
+        "references/json-rpc.md",
+        "arkiv-data-modeling/SKILL.md"
+      ]
+    },
+    "A": {
+      "grammarValidRate": 0,
+      "silentZeroRate": 70,
+      "liveRowsRate": 0,
+      "parseErrorRate": 100,
+      "totalExpressionBytes": 827
+    },
+    "B": {
+      "grammarValidRate": 100,
+      "silentZeroRate": 0,
+      "liveRowsRate": 90,
+      "parseErrorRate": 0,
+      "totalExpressionBytes": 679,
+      "totalGuidanceBytes": 2334
+    },
+    "budgetExhausted": 0,
+    "rpcStats": {
+      "requests": 10,
+      "cacheHits": 28,
+      "cacheWrites": 0,
+      "cost": 1000,
+      "quotaUsedPercent": 1,
+      "budgetExhausted": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "b1",
+      "intent": "Find expert mentors for account abstraction",
+      "A": {
+        "condition": "markdown-only (simulated)",
+        "expression": "(reputationScore >= 4.5 || id IN (SELECT wallet FROM Cert WHERE level = \"Expert\")) && type = \"Profile\" && is_mentor = true",
+        "grammarValid": false,
+        "violations": [
+          "rejected-syntax:symbol-operators",
+          "rejected-syntax:subquery",
+          "rejected-syntax:bare-decimal",
+          "rejected-syntax:double-quoted",
+          "silent-zero:uppercase-attribute-name",
+          "silent-zero:untyped-range-literal"
+        ],
+        "silentZeroRisk": true,
+        "live": {
+          "outcome": "parse-error",
+          "code": -32001,
+          "message": "unexpected character"
+        },
+        "expressionBytes": 122
+      },
+      "B": {
+        "condition": "ontology (ontoskill)",
+        "expression": "",
+        "grammarValid": true,
+        "violations": [],
+        "silentZeroRisk": false,
+        "live": {
+          "outcome": "no-expression"
+        },
+        "confidence": "low",
+        "disambiguation": 0,
+        "warnings": [
+          "unresolved-namespace",
+          "no-attested-entity-type",
+          "no-attested-attribute"
+        ],
+        "expressionBytes": 0,
+        "guidanceBytes": 129
+      }
+    },
+    {
+      "id": "b2",
+      "intent": "mandi potato price votes",
+      "A": {
+        "condition": "markdown-only (simulated)",
+        "expression": "project = \"mandi_board_v1\" && entity_type = \"price_vote\" && crop = \"potato\" && price >= 0",
+        "grammarValid": false,
+        "violations": [
+          "rejected-syntax:symbol-operators",
+          "rejected-syntax:double-quoted",
+          "silent-zero:untyped-range-literal"
+        ],
+        "silentZeroRisk": true,
+        "live": {
+          "outcome": "parse-error",
+          "code": -32001,
+          "message": "unexpected character"
+        },
+        "expressionBytes": 89
+      },
+      "B": {
+        "condition": "ontology (ontoskill)",
+        "expression": "project = str('mandi_board_v1') AND type = str('price_vote')",
+        "grammarValid": true,
+        "violations": [],
+        "silentZeroRisk": false,
+        "live": {
+          "outcome": "rows",
+          "rows": 5,
+          "hasCursor": true
+        },
+        "confidence": "medium",
+        "disambiguation": 0,
+        "warnings": [
+          "no-attested-attribute"
+        ],
+        "expressionBytes": 60,
+        "guidanceBytes": 202
+      }
+    },
+    {
+      "id": "b3",
+      "intent": "highest price crops in delhi",
+      "A": {
+        "condition": "markdown-only (simulated)",
+        "expression": "project = \"mandi_board_v1\" && entity_type = \"price_vote\" && state = \"delhi\" && price >= 0",
+        "grammarValid": false,
+        "violations": [
+          "rejected-syntax:symbol-operators",
+          "rejected-syntax:double-quoted",
+          "silent-zero:untyped-range-literal"
+        ],
+        "silentZeroRisk": true,
+        "live": {
+          "outcome": "parse-error",
+          "code": -32001,
+          "message": "unexpected character"
+        },
+        "expressionBytes": 89
+      },
+      "B": {
+        "condition": "ontology (ontoskill)",
+        "expression": "project = str('mandi_board_v1') AND type = str('price_report') AND state = str('delhi') AND price >= dec(0)",
+        "grammarValid": true,
+        "violations": [],
+        "silentZeroRisk": false,
+        "live": {
+          "outcome": "rows",
+          "rows": 5,
+          "hasCursor": true
+        },
+        "confidence": "high",
+        "disambiguation": 0,
+        "warnings": [],
+        "expressionBytes": 107,
+        "guidanceBytes": 316
+      }
+    },
+    {
+      "id": "b4",
+      "intent": "food diversion reports in fatehpur",
+      "A": {
+        "condition": "markdown-only (simulated)",
+        "expression": "project = \"underthetable\" && entity_type = \"report\" && district = \"fatehpur\"",
+        "grammarValid": false,
+        "violations": [
+          "rejected-syntax:symbol-operators",
+          "rejected-syntax:double-quoted"
+        ],
+        "silentZeroRisk": false,
+        "live": {
+          "outcome": "parse-error",
+          "code": -32001,
+          "message": "unexpected character"
+        },
+        "expressionBytes": 76
+      },
+      "B": {
+        "condition": "ontology (ontoskill)",
+        "expression": "project = str('underthetable') AND type = str('report') AND district = str('fatehpur') AND kind = str('diversion')",
+        "grammarValid": true,
+        "violations": [],
+        "silentZeroRisk": false,
+        "live": {
+          "outcome": "rows",
+          "rows": 1,
+          "hasCursor": false
+        },
+        "confidence": "high",
+        "disambiguation": 0,
+        "warnings": [],
+        "expressionBytes": 114,
+        "guidanceBytes": 319
+      }
+    },
+    {
+      "id": "b5",
+      "intent": "delivery receipts with a tip over 10",
+      "A": {
+        "condition": "markdown-only (simulated)",
+        "expression": "project = \"bhaiyaplease\" && entity_type = \"receipt\" && tip >= 10",
+        "grammarValid": false,
+        "violations": [
+          "rejected-syntax:symbol-operators",
+          "rejected-syntax:double-quoted",
+          "silent-zero:untyped-range-literal"
+        ],
+        "silentZeroRisk": true,
+        "live": {
+          "outcome": "parse-error",
+          "code": -32001,
+          "message": "unexpected character"
+        },
+        "expressionBytes": 64
+      },
+      "B": {
+        "condition": "ontology (ontoskill)",
+        "expression": "project = str('bhaiyaplease') AND type = str('receipt')",
+        "grammarValid": true,
+        "violations": [],
+        "silentZeroRisk": false,
+        "live": {
+          "outcome": "rows",
+          "rows": 5,
+          "hasCursor": true
+        },
+        "confidence": "high",
+        "disambiguation": 0,
+        "warnings": [],
+        "expressionBytes": 55,
+        "guidanceBytes": 260
+      }
+    },
+    {
+      "id": "b6",
+      "intent": "mandi onion prices",
+      "A": {
+        "condition": "markdown-only (simulated)",
+        "expression": "project = \"mandi_board_v1\" && entity_type = \"price_vote\" && crop = \"onion\" && price >= 0",
+        "grammarValid": false,
+        "violations": [
+          "rejected-syntax:symbol-operators",
+          "rejected-syntax:double-quoted",
+          "silent-zero:untyped-range-literal"
+        ],
+        "silentZeroRisk": true,
+        "live": {
+          "outcome": "parse-error",
+          "code": -32001,
+          "message": "unexpected character"
+        },
+        "expressionBytes": 88
+      },
+      "B": {
+        "condition": "ontology (ontoskill)",
+        "expression": "project = str('mandi_board_v1') AND type = str('price_report')",
+        "grammarValid": true,
+        "violations": [],
+        "silentZeroRisk": false,
+        "live": {
+          "outcome": "rows",
+          "rows": 5,
+          "hasCursor": true
+        },
+        "confidence": "medium",
+        "disambiguation": 0,
+        "warnings": [
+          "no-attested-attribute"
+        ],
+        "expressionBytes": 62,
+        "guidanceBytes": 206
+      }
+    },
+    {
+      "id": "b7",
+      "intent": "reports from fatehpur",
+      "A": {
+        "condition": "markdown-only (simulated)",
+        "expression": "project = \"underthetable\" && entity_type = \"report\" && district = \"fatehpur\"",
+        "grammarValid": false,
+        "violations": [
+          "rejected-syntax:symbol-operators",
+          "rejected-syntax:double-quoted"
+        ],
+        "silentZeroRisk": false,
+        "live": {
+          "outcome": "parse-error",
+          "code": -32001,
+          "message": "unexpected character"
+        },
+        "expressionBytes": 76
+      },
+      "B": {
+        "condition": "ontology (ontoskill)",
+        "expression": "project = str('underthetable') AND type = str('report') AND district = str('fatehpur')",
+        "grammarValid": true,
+        "violations": [],
+        "silentZeroRisk": false,
+        "live": {
+          "outcome": "rows",
+          "rows": 1,
+          "hasCursor": false
+        },
+        "confidence": "medium",
+        "disambiguation": 0,
+        "warnings": [
+          "no-attested-attribute"
+        ],
+        "expressionBytes": 86,
+        "guidanceBytes": 223
+      }
+    },
+    {
+      "id": "b8",
+      "intent": "delivery receipts in tdr3c1",
+      "A": {
+        "condition": "markdown-only (simulated)",
+        "expression": "project = \"bhaiyaplease\" && entity_type = \"receipt\" && zone = \"tdr3c1\"",
+        "grammarValid": false,
+        "violations": [
+          "rejected-syntax:symbol-operators",
+          "rejected-syntax:double-quoted"
+        ],
+        "silentZeroRisk": false,
+        "live": {
+          "outcome": "parse-error",
+          "code": -32001,
+          "message": "unexpected character"
+        },
+        "expressionBytes": 70
+      },
+      "B": {
+        "condition": "ontology (ontoskill)",
+        "expression": "project = str('bhaiyaplease') AND type = str('receipt') AND zone = str('tdr3c1')",
+        "grammarValid": true,
+        "violations": [],
+        "silentZeroRisk": false,
+        "live": {
+          "outcome": "rows",
+          "rows": 5,
+          "hasCursor": true
+        },
+        "confidence": "high",
+        "disambiguation": 0,
+        "warnings": [],
+        "expressionBytes": 80,
+        "guidanceBytes": 285
+      }
+    },
+    {
+      "id": "b9",
+      "intent": "mandi tomato price votes",
+      "A": {
+        "condition": "markdown-only (simulated)",
+        "expression": "project = \"mandi_board_v1\" && entity_type = \"price_vote\" && crop = \"tomato\" && price >= 0",
+        "grammarValid": false,
+        "violations": [
+          "rejected-syntax:symbol-operators",
+          "rejected-syntax:double-quoted",
+          "silent-zero:untyped-range-literal"
+        ],
+        "silentZeroRisk": true,
+        "live": {
+          "outcome": "parse-error",
+          "code": -32001,
+          "message": "unexpected character"
+        },
+        "expressionBytes": 89
+      },
+      "B": {
+        "condition": "ontology (ontoskill)",
+        "expression": "project = str('mandi_board_v1') AND type = str('price_vote')",
+        "grammarValid": true,
+        "violations": [],
+        "silentZeroRisk": false,
+        "live": {
+          "outcome": "rows",
+          "rows": 5,
+          "hasCursor": true
+        },
+        "confidence": "medium",
+        "disambiguation": 0,
+        "warnings": [
+          "no-attested-attribute"
+        ],
+        "expressionBytes": 60,
+        "guidanceBytes": 202
+      }
+    },
+    {
+      "id": "b10",
+      "intent": "receipts with a tip over 20",
+      "A": {
+        "condition": "markdown-only (simulated)",
+        "expression": "project = \"bhaiyaplease\" && entity_type = \"receipt\" && tip >= 20",
+        "grammarValid": false,
+        "violations": [
+          "rejected-syntax:symbol-operators",
+          "rejected-syntax:double-quoted",
+          "silent-zero:untyped-range-literal"
+        ],
+        "silentZeroRisk": true,
+        "live": {
+          "outcome": "parse-error",
+          "code": -32001,
+          "message": "unexpected character"
+        },
+        "expressionBytes": 64
+      },
+      "B": {
+        "condition": "ontology (ontoskill)",
+        "expression": "project = str('bhaiyaplease') AND type = str('receipt')",
+        "grammarValid": true,
+        "violations": [],
+        "silentZeroRisk": false,
+        "live": {
+          "outcome": "rows",
+          "rows": 5,
+          "hasCursor": true
+        },
+        "confidence": "medium",
+        "disambiguation": 0,
+        "warnings": [
+          "no-attested-attribute"
+        ],
+        "expressionBytes": 55,
+        "guidanceBytes": 192
+      }
+    }
+  ],
+  "baselineStyleNotes": [
+    "SQL/C-style operators && || ! (removed from the language)",
+    "double-quoted string literals",
+    "bool(true) wrapper",
+    "camelCase attribute names (parse on read, can never match)",
+    "attribute names with no on-chain attestation",
+    "bare decimal literals",
+    "LIKE instead of infix STARTSWITH",
+    "IN (SELECT ...) subqueries",
+    "entity_type as the discriminator (most real projects use `type`)"
+  ]
+}

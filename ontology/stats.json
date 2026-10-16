@@ -1,0 +1,11 @@
+{
+  "triples": 2946,
+  "shaclLines": 78,
+  "projects": 33,
+  "entityTypes": 25,
+  "attributes": 507,
+  "ambiguousAttributes": 29,
+  "grammarRejections": 14,
+  "shaclConstraints": 14,
+  "source": "arkiv-probe3.out"
+}

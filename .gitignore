@@ -1,0 +1,20 @@
+node_modules/
+.cargo/
+target/
+dist/
+*.log
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# RPC response cache (regenerable; keeps the repo small)
+data/rpc-cache/
+data/cache/
+
+# Local tooling
+.DS_Store
+*.swp

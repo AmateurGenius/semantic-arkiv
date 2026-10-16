@@ -1,0 +1,3152 @@
+{
+  "source": "arkiv-probe3.out",
+  "walkedRows": 9000,
+  "pages": 45,
+  "note": "aggregated from a live 45-page walk of arkiv_query [\"*\"]; baseload-indexer noise (random_*) separated out",
+  "projects": {
+    "arkiv-chain-indexer-baseload": 842,
+    "tolmol": 599,
+    "bhaiyaplease": 128,
+    "mandi_board_v1": 97,
+    "arkivate": 82,
+    "underthetable": 77,
+    "slotbazaar": 52,
+    "arkivtrace": 50,
+    "arkognito-demo-sketch": 42,
+    "safestay_v1": 29,
+    "youva_demo_v1": 15,
+    "globalpay": 14,
+    "arkiv-witness": 11,
+    "ghostwallet": 10,
+    "arkognito-7f3k": 8,
+    "golden_hour": 8,
+    "prometheus": 7,
+    "poora-mila": 6,
+    "deadlineguard_india": 4,
+    "subs-test": 3,
+    "harbor": 3,
+    "arkiv-x402-receipt-log-2026-v1": 3,
+    "fern": 2,
+    "orbit": 2,
+    "relayline-v1": 2,
+    "partfolk": 2,
+    "receipts-test": 1,
+    "partfolk-events": 1,
+    "arkiv": 1,
+    "resist.net": 1,
+    "stryde": 1,
+    "solrally": 1,
+    "hb-selftest": 1
+  },
+  "entityTypes": {
+    "receipt": 52,
+    "slot": 23,
+    "trigger": 15,
+    "completion": 15,
+    "booking": 14,
+    "deposit_terms": 10,
+    "evidence_log": 9,
+    "deposit_outcome": 9,
+    "acceptance": 6,
+    "sealed": 6,
+    "mandate": 4,
+    "reveal": 4,
+    "notice_observation": 4,
+    "worker": 2,
+    "publication": 2,
+    "attendance_state": 1,
+    "circuit_release": 1,
+    "revocation_root": 1,
+    "issuer": 1,
+    "landlord_profile": 1,
+    "follow": 1,
+    "community": 1,
+    "revocation": 1,
+    "project_state": 1,
+    "project_root": 1
+  },
+  "attributes": {
+    "accepted_block": {
+      "observations": 6,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "accredited": {
+      "observations": 76,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "action": {
+      "observations": 87,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "action_type": {
+      "observations": 12,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "active_contracts": {
+      "observations": 116,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "address": {
+      "observations": 7,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "after": {
+      "observations": 146,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "agent": {
+      "observations": 30,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "agreement": {
+      "observations": 2,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "algorithm_ref": {
+      "observations": 4,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "amount": {
+      "observations": 4,
+      "observedTypes": [
+        "dec",
+        "u64"
+      ]
+    },
+    "amount_inr": {
+      "observations": 76,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "amount_microunits": {
+      "observations": 3,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "amount_paise": {
+      "observations": 8,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "amount_returned_inr": {
+      "observations": 9,
+      "observedTypes": [
+        "u256"
+      ]
+    },
+    "app": {
+      "observations": 6394,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "artifact_count": {
+      "observations": 3,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "artifact_hash": {
+      "observations": 42,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "asset": {
+      "observations": 9,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "at": {
+      "observations": 79,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "attestor": {
+      "observations": 1,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "audience_hash": {
+      "observations": 1,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "authority": {
+      "observations": 42,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "availability_key": {
+      "observations": 3,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "batch": {
+      "observations": 3473,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "before": {
+      "observations": 146,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "blocktype": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "booked_at": {
+      "observations": 14,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "booking_key": {
+      "observations": 15,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "booth": {
+      "observations": 84,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "buyer": {
+      "observations": 6,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "by": {
+      "observations": 14,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "card_tag": {
+      "observations": 33,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "cards": {
+      "observations": 5,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "case": {
+      "observations": 149,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "category": {
+      "observations": 179,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "chain": {
+      "observations": 11,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "chain_id": {
+      "observations": 7,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "channel": {
+      "observations": 7,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "children": {
+      "observations": 2,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "circuit_id": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "city": {
+      "observations": 198,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "claimed_author": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "class": {
+      "observations": 2999,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "closes_at": {
+      "observations": 2,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "cluster": {
+      "observations": 23,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "code": {
+      "observations": 9,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "code_commit": {
+      "observations": 40,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "code_hash": {
+      "observations": 7,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "collateral_amount": {
+      "observations": 1,
+      "observedTypes": [
+        "dec"
+      ]
+    },
+    "collateral_symbol": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "commitment": {
+      "observations": 12,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "community": {
+      "observations": 3,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "community_key": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "compiler_version": {
+      "observations": 7,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "completed_at": {
+      "observations": 15,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "computed_at": {
+      "observations": 116,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "cond_type": {
+      "observations": 15,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "confirmed_at": {
+      "observations": 16,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "confirms": {
+      "observations": 16,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "contaminant": {
+      "observations": 1178,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "contract": {
+      "observations": 75,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "contract_name": {
+      "observations": 7,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "contracts": {
+      "observations": 22,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "corrects": {
+      "observations": 2,
+      "observedTypes": [
+        "key",
+        "str"
+      ]
+    },
+    "cost_pct": {
+      "observations": 160,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "count": {
+      "observations": 10,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "counter": {
+      "observations": 2,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "created_at": {
+      "observations": 53,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "created_at_ms": {
+      "observations": 14,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "crop": {
+      "observations": 63,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "currency": {
+      "observations": 9,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "dataset": {
+      "observations": 18,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "day": {
+      "observations": 167,
+      "observedTypes": [
+        "i32",
+        "str"
+      ]
+    },
+    "days_lost": {
+      "observations": 17,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "deadline_date": {
+      "observations": 8,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "deadline_ms": {
+      "observations": 4,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "deadline_ts": {
+      "observations": 8,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "dealer": {
+      "observations": 6,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "debt_minr": {
+      "observations": 1,
+      "observedTypes": [
+        "dec"
+      ]
+    },
+    "decision": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "delegable": {
+      "observations": 4,
+      "observedTypes": [
+        "bool"
+      ]
+    },
+    "delegate": {
+      "observations": 2,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "delivery": {
+      "observations": 39,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "demo": {
+      "observations": 198,
+      "observedTypes": [
+        "bool"
+      ]
+    },
+    "department": {
+      "observations": 96,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "deposit_inr": {
+      "observations": 10,
+      "observedTypes": [
+        "u256"
+      ]
+    },
+    "depth": {
+      "observations": 4,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "descriptor_hash": {
+      "observations": 42,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "dest_zone": {
+      "observations": 40,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "device": {
+      "observations": 33,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "direction": {
+      "observations": 2,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "discrepancy_id": {
+      "observations": 8,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "discrepancy_status": {
+      "observations": 19,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "dish": {
+      "observations": 25,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "dispatch_id": {
+      "observations": 29,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "display_name": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "disputed": {
+      "observations": 1,
+      "observedTypes": [
+        "bool"
+      ]
+    },
+    "district": {
+      "observations": 1636,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "doc": {
+      "observations": 1186,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "doc_id": {
+      "observations": 20,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "doc_sha256": {
+      "observations": 2,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "domain": {
+      "observations": 4,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "done_block": {
+      "observations": 2,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "dur_s": {
+      "observations": 21,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "eid": {
+      "observations": 1173,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "election": {
+      "observations": 279,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "electors": {
+      "observations": 56,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "embargo": {
+      "observations": 13,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "encryption": {
+      "observations": 8,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "ends_at": {
+      "observations": 25,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "engine": {
+      "observations": 4,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "engine_version": {
+      "observations": 4,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "entitled_g": {
+      "observations": 269,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "entity_type": {
+      "observations": 185,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "entitytype": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "epoch": {
+      "observations": 58,
+      "observedTypes": [
+        "i32",
+        "str",
+        "u64"
+      ]
+    },
+    "eta": {
+      "observations": 1,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "event": {
+      "observations": 2,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "events": {
+      "observations": 116,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "evid": {
+      "observations": 146,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "evidence_block": {
+      "observations": 49,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "evidence_kind": {
+      "observations": 9,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "evidence_sha256": {
+      "observations": 9,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "evidence_version": {
+      "observations": 7,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "exceeds": {
+      "observations": 1178,
+      "observedTypes": [
+        "bool"
+      ]
+    },
+    "exchange_key": {
+      "observations": 3,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "exemption": {
+      "observations": 15,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "exp_ok": {
+      "observations": 2999,
+      "observedTypes": [
+        "bool"
+      ]
+    },
+    "exp_ym": {
+      "observations": 3212,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "expires_at": {
+      "observations": 4,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "facility_id": {
+      "observations": 8,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "fetched": {
+      "observations": 10,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "file_hash": {
+      "observations": 2,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "filed_at": {
+      "observations": 18,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "filed_ms": {
+      "observations": 51,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "filename": {
+      "observations": 5,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "fired_block": {
+      "observations": 49,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "followee": {
+      "observations": 1,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "follower": {
+      "observations": 1,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "from_day": {
+      "observations": 5,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "from_id": {
+      "observations": 93,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "fuse": {
+      "observations": 14,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "geohash": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "grain_g": {
+      "observations": 2,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "grain_type": {
+      "observations": 21,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "grant_ref": {
+      "observations": 4,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "graph_hash": {
+      "observations": 173,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "group": {
+      "observations": 97,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "guild": {
+      "observations": 69,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "health_factor": {
+      "observations": 1,
+      "observedTypes": [
+        "dec"
+      ]
+    },
+    "home": {
+      "observations": 197,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "hours_band": {
+      "observations": 160,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "http_status": {
+      "observations": 14,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "httpstatus": {
+      "observations": 1,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "inbox": {
+      "observations": 35,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "inbox_id": {
+      "observations": 9,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "indicator": {
+      "observations": 16,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "inspector": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "isp": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "issued_at": {
+      "observations": 12,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "issuer": {
+      "observations": 5,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "issuer_code": {
+      "observations": 4,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "issuer_id": {
+      "observations": 2,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "issues": {
+      "observations": 99,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "issues2": {
+      "observations": 3,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "item": {
+      "observations": 469,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "jurisdiction": {
+      "observations": 57,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "kart": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "keeper": {
+      "observations": 2,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "key_version": {
+      "observations": 1,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "kind": {
+      "observations": 2828,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "kyc": {
+      "observations": 7,
+      "observedTypes": [
+        "bool"
+      ]
+    },
+    "lab": {
+      "observations": 2999,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "label": {
+      "observations": 5,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "lag_basis": {
+      "observations": 115,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "lag_d": {
+      "observations": 115,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "lag_w": {
+      "observations": 115,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "landlord_wallet": {
+      "observations": 18,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "lang": {
+      "observations": 29,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "language": {
+      "observations": 42,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "last_beat": {
+      "observations": 4,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "last_modified_ts": {
+      "observations": 8,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "lat_e4": {
+      "observations": 23,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "lat_e5": {
+      "observations": 8,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "lat_e6": {
+      "observations": 11,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "lb": {
+      "observations": 9,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "lb_listing": {
+      "observations": 2,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "lead_blocks": {
+      "observations": 4,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "level": {
+      "observations": 3,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "lga": {
+      "observations": 172,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "list_ym": {
+      "observations": 156,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "listed_at": {
+      "observations": 75,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "lng_e6": {
+      "observations": 11,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "loan": {
+      "observations": 4,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "log": {
+      "observations": 11,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "lon_e4": {
+      "observations": 23,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "lon_e5": {
+      "observations": 8,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "look": {
+      "observations": 39,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "loser": {
+      "observations": 14,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "mandate_id": {
+      "observations": 5,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "mandi": {
+      "observations": 63,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "market_open": {
+      "observations": 2,
+      "observedTypes": [
+        "bool"
+      ]
+    },
+    "material": {
+      "observations": 46,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "max_price": {
+      "observations": 40,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "meal_days": {
+      "observations": 2,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "merkle_root": {
+      "observations": 7,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "method": {
+      "observations": 39,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "mgl": {
+      "observations": 1178,
+      "observedTypes": [
+        "dec"
+      ]
+    },
+    "millet_g": {
+      "observations": 5,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "minutes": {
+      "observations": 55,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "ml": {
+      "observations": 11,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "mode": {
+      "observations": 51,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "model": {
+      "observations": 6,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "modes": {
+      "observations": 2,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "month": {
+      "observations": 517,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "month_num": {
+      "observations": 278,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "move_in": {
+      "observations": 1,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "mver": {
+      "observations": 6,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "na": {
+      "observations": 115,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "name": {
+      "observations": 38,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "name_tag": {
+      "observations": 5,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "namespace": {
+      "observations": 217,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "need": {
+      "observations": 4,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "net": {
+      "observations": 36,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "net_hourly": {
+      "observations": 160,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "network": {
+      "observations": 4,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "networktype": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "new": {
+      "observations": 10,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "new_expires_at": {
+      "observations": 4,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "new_valid_until": {
+      "observations": 3,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "node_id": {
+      "observations": 73,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "node_type": {
+      "observations": 73,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "nodewallet": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "norm_sha256": {
+      "observations": 8,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "normalizer_version": {
+      "observations": 14,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "notice": {
+      "observations": 12,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "notice_id": {
+      "observations": 24,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "observations_ref": {
+      "observations": 2,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "observed_at": {
+      "observations": 119,
+      "observedTypes": [
+        "i32",
+        "u64"
+      ]
+    },
+    "observed_at_ms": {
+      "observations": 4,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "observer": {
+      "observations": 16,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "of": {
+      "observations": 359,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "offer": {
+      "observations": 2,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "old_expires_at": {
+      "observations": 7,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "op": {
+      "observations": 3,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "op_id": {
+      "observations": 15,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "open_days": {
+      "observations": 2,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "opens_at": {
+      "observations": 2,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "operation_id": {
+      "observations": 3,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "org": {
+      "observations": 9,
+      "observedTypes": [
+        "addr",
+        "str"
+      ]
+    },
+    "org_type": {
+      "observations": 10,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "origin": {
+      "observations": 75,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "outcome": {
+      "observations": 189,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "outcome_id": {
+      "observations": 9,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "outcome_key": {
+      "observations": 9,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "page": {
+      "observations": 1173,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "parcel": {
+      "observations": 28,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "parent": {
+      "observations": 5,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "parent_id": {
+      "observations": 3,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "party": {
+      "observations": 87,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "patches": {
+      "observations": 2,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "pc": {
+      "observations": 89,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "people": {
+      "observations": 6,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "period": {
+      "observations": 201,
+      "observedTypes": [
+        "i32",
+        "str"
+      ]
+    },
+    "person_days": {
+      "observations": 2,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "photo": {
+      "observations": 54,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "place": {
+      "observations": 1182,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "platform": {
+      "observations": 188,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "pledge": {
+      "observations": 3,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "pledger": {
+      "observations": 3,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "pname": {
+      "observations": 2999,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "pnl_bps": {
+      "observations": 9,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "position": {
+      "observations": 1,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "pot": {
+      "observations": 5,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "pre_release_checks": {
+      "observations": 3,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "prev": {
+      "observations": 5,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "prev_entity": {
+      "observations": 2,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "prev_norm_sha256": {
+      "observations": 2,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "price": {
+      "observations": 74,
+      "observedTypes": [
+        "dec"
+      ]
+    },
+    "price_band": {
+      "observations": 23,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "printed_date_ts": {
+      "observations": 8,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "probe_run": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "profit": {
+      "observations": 4,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "project": {
+      "observations": 2105,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "project_id": {
+      "observations": 16,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "project_key": {
+      "observations": 2,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "project_slug": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "promised": {
+      "observations": 1,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "property": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "property_label": {
+      "observations": 10,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "protocol": {
+      "observations": 216,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "provider": {
+      "observations": 6,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "ptok": {
+      "observations": 2999,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "pub_year": {
+      "observations": 13,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "public_id": {
+      "observations": 7,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "published": {
+      "observations": 2,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "published_at": {
+      "observations": 3,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "publisher": {
+      "observations": 16,
+      "observedTypes": [
+        "addr",
+        "str"
+      ]
+    },
+    "puffer": {
+      "observations": 71,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "qty": {
+      "observations": 9,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "rate_inr": {
+      "observations": 2,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "raw_sha256": {
+      "observations": 8,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "reachable": {
+      "observations": 1,
+      "observedTypes": [
+        "bool"
+      ]
+    },
+    "reason": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "reason_code": {
+      "observations": 3,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "receipt_hash": {
+      "observations": 3,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "receipt_id": {
+      "observations": 17,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "receipt_key": {
+      "observations": 2,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "received_at": {
+      "observations": 2,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "received_g": {
+      "observations": 269,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "receiver_ref": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "recipient_wallet": {
+      "observations": 3,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "record_type": {
+      "observations": 8,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "recorded_at": {
+      "observations": 2,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "records": {
+      "observations": 13,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "redirect_chain_len": {
+      "observations": 14,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "ref": {
+      "observations": 56,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "refund_days": {
+      "observations": 1,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "region": {
+      "observations": 20,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "registered": {
+      "observations": 96,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "rejected": {
+      "observations": 76,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "relation": {
+      "observations": 93,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "release": {
+      "observations": 6,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "release_key": {
+      "observations": 3,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "released_at": {
+      "observations": 3,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "replied_ms": {
+      "observations": 36,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "reply": {
+      "observations": 43,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "repo": {
+      "observations": 105,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "report": {
+      "observations": 17,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "report_id": {
+      "observations": 9,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "report_key": {
+      "observations": 273,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "reported_at": {
+      "observations": 545,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "reported_at_ms": {
+      "observations": 63,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "reporter": {
+      "observations": 63,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "request": {
+      "observations": 41,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "request_ref": {
+      "observations": 4,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "requester_type": {
+      "observations": 11,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "resident": {
+      "observations": 40,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "resolution_status": {
+      "observations": 8,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "resource_hash": {
+      "observations": 4,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "resource_kind": {
+      "observations": 4,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "response_days": {
+      "observations": 36,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "responsetimems": {
+      "observations": 1,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "result": {
+      "observations": 2,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "result_ref": {
+      "observations": 1,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "returned": {
+      "observations": 1,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "revision": {
+      "observations": 8,
+      "observedTypes": [
+        "i32",
+        "u64"
+      ]
+    },
+    "revocation_id": {
+      "observations": 1,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "revoked_at": {
+      "observations": 4,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "rice_g": {
+      "observations": 5,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "rid": {
+      "observations": 3006,
+      "observedTypes": [
+        "bytes32",
+        "str"
+      ]
+    },
+    "rider": {
+      "observations": 80,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "role": {
+      "observations": 115,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "role_code": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "round": {
+      "observations": 71,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "route": {
+      "observations": 21,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "row": {
+      "observations": 2999,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "rows": {
+      "observations": 10,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "rstate": {
+      "observations": 2999,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "run": {
+      "observations": 252,
+      "observedTypes": [
+        "key",
+        "str"
+      ]
+    },
+    "sa": {
+      "observations": 115,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "sandbox": {
+      "observations": 8,
+      "observedTypes": [
+        "bool"
+      ]
+    },
+    "saved": {
+      "observations": 2,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "schema": {
+      "observations": 316,
+      "observedTypes": [
+        "bytes32",
+        "i32"
+      ]
+    },
+    "schema_v": {
+      "observations": 72,
+      "observedTypes": [
+        "str",
+        "u64"
+      ]
+    },
+    "schema_version": {
+      "observations": 884,
+      "observedTypes": [
+        "i32",
+        "u64"
+      ]
+    },
+    "scheme": {
+      "observations": 115,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "scope": {
+      "observations": 10,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "scope_hash": {
+      "observations": 2,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "score": {
+      "observations": 2,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "sealed": {
+      "observations": 10,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "sealed_creator": {
+      "observations": 6,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "seconds": {
+      "observations": 21,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "section": {
+      "observations": 19,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "seed_batch": {
+      "observations": 31,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "seed_id": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "seen_ymd": {
+      "observations": 146,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "sender_ref": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "seq": {
+      "observations": 15,
+      "observedTypes": [
+        "i32",
+        "u64"
+      ]
+    },
+    "sequence": {
+      "observations": 14,
+      "observedTypes": [
+        "i32",
+        "u64"
+      ]
+    },
+    "service": {
+      "observations": 79,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "service_id": {
+      "observations": 2,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "session": {
+      "observations": 9,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "sev": {
+      "observations": 16,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "severity": {
+      "observations": 44,
+      "observedTypes": [
+        "str",
+        "u64"
+      ]
+    },
+    "sha": {
+      "observations": 105,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "sha256": {
+      "observations": 23,
+      "observedTypes": [
+        "bytes32",
+        "str"
+      ]
+    },
+    "shop": {
+      "observations": 46,
+      "observedTypes": [
+        "key",
+        "str"
+      ]
+    },
+    "shop_id": {
+      "observations": 644,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "shortfall_bp": {
+      "observations": 269,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "shortfall_g": {
+      "observations": 269,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "side": {
+      "observations": 30,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "since_ymd": {
+      "observations": 213,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "site": {
+      "observations": 18,
+      "observedTypes": [
+        "key",
+        "str"
+      ]
+    },
+    "site_type": {
+      "observations": 6,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "size": {
+      "observations": 21,
+      "observedTypes": [
+        "dec",
+        "u64"
+      ]
+    },
+    "sla": {
+      "observations": 13,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "slot_creator": {
+      "observations": 14,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "slot_ends_at": {
+      "observations": 14,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "slot_key": {
+      "observations": 14,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "slot_starts_at": {
+      "observations": 4,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "snap": {
+      "observations": 2999,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "source": {
+      "observations": 26,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "source_domain": {
+      "observations": 4,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "source_hash": {
+      "observations": 14,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "source_key": {
+      "observations": 7,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "source_kind": {
+      "observations": 20,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "source_release_key": {
+      "observations": 2,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "source_url": {
+      "observations": 6,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "src": {
+      "observations": 3489,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "src_ym": {
+      "observations": 2999,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "src_ymd": {
+      "observations": 2999,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "srctype": {
+      "observations": 4,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "stage": {
+      "observations": 9,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "starts_at": {
+      "observations": 25,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "stat": {
+      "observations": 1173,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "state": {
+      "observations": 955,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "status": {
+      "observations": 95,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "stock_report_entity_key": {
+      "observations": 2,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "stock_status": {
+      "observations": 7,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "style": {
+      "observations": 16,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "subject": {
+      "observations": 22,
+      "observedTypes": [
+        "addr",
+        "key"
+      ]
+    },
+    "subject_type": {
+      "observations": 17,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "submitted_at": {
+      "observations": 76,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "subscription": {
+      "observations": 2,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "symbol": {
+      "observations": 11,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "synthetic": {
+      "observations": 749,
+      "observedTypes": [
+        "bool"
+      ]
+    },
+    "t0": {
+      "observations": 21,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "t1": {
+      "observations": 21,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "table": {
+      "observations": 99,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "tag": {
+      "observations": 105,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "target": {
+      "observations": 116,
+      "observedTypes": [
+        "key",
+        "str"
+      ]
+    },
+    "target_expiry": {
+      "observations": 4,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "target_key": {
+      "observations": 12,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "targeturl": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "tenant": {
+      "observations": 1,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "tenant_wallet": {
+      "observations": 10,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "terms_id": {
+      "observations": 10,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "terms_key": {
+      "observations": 11,
+      "observedTypes": [
+        "key",
+        "str"
+      ]
+    },
+    "test": {
+      "observations": 3002,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "tested": {
+      "observations": 5,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "text_extracted": {
+      "observations": 8,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "text_hash": {
+      "observations": 9,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "timestamp": {
+      "observations": 1,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "tip": {
+      "observations": 40,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "to": {
+      "observations": 58,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "to_day": {
+      "observations": 5,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "to_id": {
+      "observations": 93,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "token": {
+      "observations": 4,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "topic": {
+      "observations": 52,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "track": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "transfer_ref": {
+      "observations": 9,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "trigger": {
+      "observations": 54,
+      "observedTypes": [
+        "key",
+        "str"
+      ]
+    },
+    "trigger_block": {
+      "observations": 2,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "trigger_id": {
+      "observations": 2,
+      "observedTypes": [
+        "bytes32"
+      ]
+    },
+    "ts": {
+      "observations": 2,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "twin_ref": {
+      "observations": 4,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "type": {
+      "observations": 5425,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "unit_code": {
+      "observations": 172,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "unit_ref": {
+      "observations": 5,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "until_block": {
+      "observations": 1,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "updated_at": {
+      "observations": 22,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "urgency": {
+      "observations": 5,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "url_count": {
+      "observations": 11,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "user": {
+      "observations": 10,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "v": {
+      "observations": 3920,
+      "observedTypes": [
+        "i32",
+        "u64"
+      ]
+    },
+    "valid_until": {
+      "observations": 16,
+      "observedTypes": [
+        "i32",
+        "u64"
+      ]
+    },
+    "value": {
+      "observations": 12,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "vantage": {
+      "observations": 14,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "variant": {
+      "observations": 3,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "vehicle": {
+      "observations": 160,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "vendor": {
+      "observations": 14,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "venue": {
+      "observations": 37,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "verdict": {
+      "observations": 41,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "verified": {
+      "observations": 7,
+      "observedTypes": [
+        "bool"
+      ]
+    },
+    "verified_at": {
+      "observations": 7,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "verified_on": {
+      "observations": 33,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "verifier": {
+      "observations": 1,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "version": {
+      "observations": 37,
+      "observedTypes": [
+        "i32",
+        "str",
+        "u64"
+      ]
+    },
+    "version_code": {
+      "observations": 3,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "voted_at_ms": {
+      "observations": 34,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "voter": {
+      "observations": 34,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "votes": {
+      "observations": 56,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "votes_a": {
+      "observations": 76,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "votes_b": {
+      "observations": 76,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "votes_c": {
+      "observations": 76,
+      "observedTypes": [
+        "u64"
+      ]
+    },
+    "vtag": {
+      "observations": 30,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "wages_paid_inr": {
+      "observations": 2,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "wallet": {
+      "observations": 17,
+      "observedTypes": [
+        "addr",
+        "str"
+      ]
+    },
+    "wallets": {
+      "observations": 116,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "ward": {
+      "observations": 178,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "watch_key": {
+      "observations": 10,
+      "observedTypes": [
+        "key"
+      ]
+    },
+    "watcher": {
+      "observations": 48,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "week": {
+      "observations": 76,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "wheat_g": {
+      "observations": 5,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "withdrawn": {
+      "observations": 4,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "witnessed": {
+      "observations": 115,
+      "observedTypes": [
+        "bool"
+      ]
+    },
+    "work": {
+      "observations": 177,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "worker": {
+      "observations": 6,
+      "observedTypes": [
+        "addr"
+      ]
+    },
+    "workers": {
+      "observations": 2,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "world": {
+      "observations": 383,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "x": {
+      "observations": 124,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "y": {
+      "observations": 124,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "year": {
+      "observations": 1123,
+      "observedTypes": [
+        "i32"
+      ]
+    },
+    "zone": {
+      "observations": 84,
+      "observedTypes": [
+        "str"
+      ]
+    },
+    "zone5": {
+      "observations": 5,
+      "observedTypes": [
+        "str"
+      ]
+    }
+  },
+  "baseloadNoiseCount": 1684,
+  "counts": {
+    "distinctProjects": 33,
+    "distinctEntityTypes": 25,
+    "distinctAttributeNamesTotal": 2191,
+    "realAttributes": 507,
+    "baseloadNoise": 1684,
+    "ambiguousAttributes": 29
+  }
+}

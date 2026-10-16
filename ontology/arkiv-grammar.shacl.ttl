@@ -1,0 +1,78 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix arkiv: <https://semantic-arkiv.dev/ontology/arkiv#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# Shapes constraining any Arkiv filter expression emitted by the resolver.
+# Violating one of these yields a query that either errors (-32001/-32002) or,
+# worse, succeeds and silently returns nothing.
+#
+# Every sh:not pattern below was confirmed against the live Tiramisu node.
+
+arkiv:EmittedFilterShape a sh:NodeShape ;
+    sh:targetClass arkiv:EmittedFilter ;
+    sh:property [
+        sh:path arkiv:expression ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:message "An emitted filter must carry an expression string."
+    ] ;
+    sh:not [
+        sh:pattern "\"" ;
+        sh:message "Expression must not contain a double quote: Arkiv string literals are str('x')."
+    ] ;
+    sh:not [
+        sh:pattern "&&" ;
+        sh:message "Symbol operator && was removed. Use AND."
+    ] ;
+    sh:not [
+        sh:pattern "\\|\\|" ;
+        sh:message "Symbol operator || was removed. Use OR."
+    ] ;
+    sh:not [
+        sh:pattern "~" ;
+        sh:message "Symbol operator ~ was removed."
+    ] ;
+    sh:not [
+        sh:pattern "EXISTS\\s*\\(" ;
+        sh:message "EXISTS is rejected by the node (-32002)."
+    ] ;
+    sh:not [
+        sh:pattern "TYPEOF\\s*\\(" ;
+        sh:message "TYPEOF is rejected by the node (-32002)."
+    ] ;
+    sh:not [
+        sh:pattern "LIKE\\b" ;
+        sh:message "No SQL LIKE. Prefix matching is STARTSWITH."
+    ] ;
+    sh:not [
+        sh:pattern "STARTSWITH\\s*\\(" ;
+        sh:message "STARTSWITH is infix only: attr STARTSWITH str('x')."
+    ] ;
+    sh:not [
+        sh:pattern "bool\\s*\\(" ;
+        sh:message "bool() takes no wrapper: write the literal true or false."
+    ] ;
+    sh:not [
+        sh:pattern "dec\\s*\\(\\s*'" ;
+        sh:message "dec() takes bare digits: dec(4.5), never dec('4.5')."
+    ] ;
+    sh:not [
+        sh:pattern "[A-Za-z_][A-Za-z0-9_]*\\s*(=|>=|<=|>|<)\\s*\\d+\\.\\d+" ;
+        sh:message "Bare decimal literals are rejected. Use dec(4.5)."
+    ] .
+
+# The silent-zero shape: an emitted predicate whose attribute name can never match.
+arkiv:EmittedPredicateShape a sh:NodeShape ;
+    sh:targetClass arkiv:EmittedPredicate ;
+    sh:property [
+        sh:path arkiv:attributeName ;
+        sh:pattern "^[a-z][a-z0-9_]*$" ;
+        sh:maxLength 32 ;
+        sh:message "Attribute names must be lowercase snake_case (<=32 bytes). Uppercase names parse on read but can never match a stored cell: the write path rejects them."
+    ] ;
+    sh:property [
+        sh:path arkiv:requiresDisambiguation ;
+        sh:maxCount 0 ;
+        sh:severity sh:Warning ;
+        sh:message "This attribute carries multiple observed types. Emit an explicit type constructor or widen with OR across the observed types."
+    ] .

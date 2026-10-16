@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-16",
+  "rpc": "https://rpc.tiramisu.db-chain.testnet.arkiv.network",
+  "finding": "arkiv_query is cost-metered; anonymous budget is 10000 units and was exhausted",
+  "headers": {
+    "ratelimit": "limit=10000, remaining=0, reset=2464",
+    "retry-after": "2464",
+    "access-control-expose-headers": "RateLimit, Retry-After, Link, Arkiv-Quota-Used-Percent, Arkiv-Cost"
+  },
+  "body": {
+    "error": "ANON_COST_LIMITED",
+    "message": "unauthenticated query budget exhausted; get an API key at https://hub.arkiv.network for a monthly quota"
+  },
+  "implications": [
+    "eth_blockNumber is not cost-limited; arkiv_query is.",
+    "Arkiv-Cost header is exposed -> queries have a cost, not just a count.",
+    "The build plan Day 1 access-key task is a hard dependency.",
+    "Day 9 benchmark (30 prompts x 3 conditions) is not executable on the anonymous tier."
+  ]
+}

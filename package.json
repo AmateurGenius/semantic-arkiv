@@ -1,0 +1,22 @@
+{
+  "name": "semantic-arkiv",
+  "version": "1.0.0",
+  "description": "Deterministic semantic resolution layer for Arkiv queries. Compiles the live on-chain Arkiv vocabulary into a validated ontology and serves it as an MCP tool that emits grammar-correct Arkiv filter expressions.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "ontoskill": "src/mcp-server.mjs"
+  },
+  "scripts": {
+    "probe": "node scripts/probe.mjs",
+    "build:ontology": "node scripts/build-ontology.mjs",
+    "start": "node src/mcp-server.mjs",
+    "bench": "node benchmark/run.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

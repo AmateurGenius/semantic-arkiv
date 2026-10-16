@@ -1,0 +1,802 @@
+{
+  "rpc": "https://rpc.tiramisu.db-chain.testnet.arkiv.network",
+  "probedAt": "2026-10-16T19:50:24.837Z",
+  "projects": {
+    "mandi_board_v1": {
+      "project": "mandi_board_v1",
+      "entityCount": 97,
+      "discriminator": "type",
+      "entityTypes": [
+        {
+          "entityType": "price_report",
+          "count": 63,
+          "attributes": [
+            {
+              "name": "crop",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "potato",
+                "wheat",
+                "cotton"
+              ]
+            },
+            {
+              "name": "mandi",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "azadpur",
+                "rajkot",
+                "latur"
+              ]
+            },
+            {
+              "name": "price",
+              "observedTypes": [
+                "dec"
+              ],
+              "sampleValues": [
+                "1514",
+                "1500",
+                "1295"
+              ]
+            },
+            {
+              "name": "project",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "mandi_board_v1"
+              ]
+            },
+            {
+              "name": "reported_at_ms",
+              "observedTypes": [
+                "u64"
+              ],
+              "sampleValues": [
+                "0x1a144c90ea4",
+                "0x1a144c90ea3",
+                "0x1a144c90ea2"
+              ]
+            },
+            {
+              "name": "reporter",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "demo_farmer_26",
+                "demo_farmer_30",
+                "demo_farmer_03"
+              ]
+            },
+            {
+              "name": "state",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "delhi",
+                "gujarat",
+                "maharashtra"
+              ]
+            },
+            {
+              "name": "synthetic",
+              "observedTypes": [
+                "bool"
+              ],
+              "sampleValues": [
+                true
+              ]
+            },
+            {
+              "name": "type",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "price_report"
+              ]
+            }
+          ]
+        },
+        {
+          "entityType": "price_vote",
+          "count": 34,
+          "attributes": [
+            {
+              "name": "project",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "mandi_board_v1"
+              ]
+            },
+            {
+              "name": "report_key",
+              "observedTypes": [
+                "key"
+              ],
+              "sampleValues": [
+                "0x4872347cb728a955c9f796298a76b923a79aa74c2bb28380ed28cc7a08f6df0a",
+                "0xc9688ed212a775b59ade741c2340ea80b901ce4222c4eb0e56cf01c32147fdc5",
+                "0x19db70cff452b252df8de57d8ab73996ad1c8bab089aacad1cb923dbea22a0a4"
+              ]
+            },
+            {
+              "name": "type",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "price_vote"
+              ]
+            },
+            {
+              "name": "verdict",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "confirm"
+              ]
+            },
+            {
+              "name": "voted_at_ms",
+              "observedTypes": [
+                "u64"
+              ],
+              "sampleValues": [
+                "0x1a144c96312"
+              ]
+            },
+            {
+              "name": "voter",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "demo_voter_026",
+                "demo_voter_020",
+                "demo_voter_022"
+              ]
+            }
+          ]
+        }
+      ],
+      "snapshotBlock": "0xa25fe",
+      "snapshotBlockNumber": 665086,
+      "pages": 1
+    },
+    "underthetable": {
+      "project": "underthetable",
+      "entityCount": 77,
+      "discriminator": "type",
+      "entityTypes": [
+        {
+          "entityType": "report",
+          "count": 76,
+          "attributes": [
+            {
+              "name": "amount_inr",
+              "observedTypes": [
+                "u64"
+              ],
+              "sampleValues": [
+                "0x3",
+                "0x4",
+                "0x5"
+              ]
+            },
+            {
+              "name": "day",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "2026-10-16"
+              ]
+            },
+            {
+              "name": "department",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "ration",
+                "municipal",
+                "electricity"
+              ]
+            },
+            {
+              "name": "district",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "fatehpur",
+                "ghaziabad",
+                "rampur"
+              ]
+            },
+            {
+              "name": "kind",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "diversion",
+                "failure",
+                "absence"
+              ]
+            },
+            {
+              "name": "outcome",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "noted",
+                "paid",
+                "worsened"
+              ]
+            },
+            {
+              "name": "project",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "underthetable"
+              ]
+            },
+            {
+              "name": "role",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "public",
+                "patwari",
+                "revenue_inspector"
+              ]
+            },
+            {
+              "name": "service",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "grain_short",
+                "water_supply",
+                "broken_road"
+              ]
+            },
+            {
+              "name": "source",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "press"
+              ]
+            },
+            {
+              "name": "state",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "up",
+                "mp",
+                "ct"
+              ]
+            },
+            {
+              "name": "type",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "report"
+              ]
+            },
+            {
+              "name": "week",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "2026-W41",
+                "2026-W42"
+              ]
+            }
+          ]
+        },
+        {
+          "entityType": "attestation",
+          "count": 1,
+          "attributes": [
+            {
+              "name": "method",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "geo"
+              ]
+            },
+            {
+              "name": "project",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "underthetable"
+              ]
+            },
+            {
+              "name": "report",
+              "observedTypes": [
+                "key"
+              ],
+              "sampleValues": [
+                "0x647f040eda4574ca23db9312a54e2c632a9a80a4ece4baa08fdc9e741b7665a0"
+              ]
+            },
+            {
+              "name": "scope",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "state"
+              ]
+            },
+            {
+              "name": "state",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "mh"
+              ]
+            },
+            {
+              "name": "type",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "attestation"
+              ]
+            }
+          ]
+        }
+      ],
+      "snapshotBlock": "0xa25fe",
+      "snapshotBlockNumber": 665086,
+      "pages": 1
+    },
+    "bhaiyaplease": {
+      "project": "bhaiyaplease",
+      "entityCount": 128,
+      "discriminator": "type",
+      "entityTypes": [
+        {
+          "entityType": "delivery",
+          "count": 40,
+          "attributes": [
+            {
+              "name": "project",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "bhaiyaplease"
+              ]
+            },
+            {
+              "name": "request",
+              "observedTypes": [
+                "key"
+              ],
+              "sampleValues": [
+                "0x6336756b7acbd7950b7e4a1f965ea35c4941c4b38da99de20a711896029c49c8",
+                "0xa4dd688916404c64696611f8282447fccd70be6742e3c0f492cbdad5e5ddaa07",
+                "0x4375aa6daac28d85959ada70aeaecf2456b6e9b97360980842cfe01a4ac825aa"
+              ]
+            },
+            {
+              "name": "resident",
+              "observedTypes": [
+                "addr"
+              ],
+              "sampleValues": [
+                "0x13be7bfb570ef7b1a136d7a3c19fb0ec454d8412",
+                "0x51d401ea76a1744033ffa4580d50b61278f481fa",
+                "0x3c569ddb147cae1ab152ea52bb3bbaf28bba5fce"
+              ]
+            },
+            {
+              "name": "rider",
+              "observedTypes": [
+                "addr"
+              ],
+              "sampleValues": [
+                "0x280e00fd992aa5eec367846df3501858dcf955da",
+                "0x21f758e41831e8fed3486a8fa3d894a12f69cc1a",
+                "0x7b9c76f7d847dd5dd244507ce883fa51b8f2e33a"
+              ]
+            },
+            {
+              "name": "type",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "delivery"
+              ]
+            },
+            {
+              "name": "zone",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "tdr3c1"
+              ]
+            }
+          ]
+        },
+        {
+          "entityType": "request",
+          "count": 40,
+          "attributes": [
+            {
+              "name": "code_commit",
+              "observedTypes": [
+                "bytes32"
+              ],
+              "sampleValues": [
+                "0xe52de1950a25fc9e40315f403dd9503d26b493c829aa46086de54b31e092ebe4",
+                "0xe0d16be059c4bd5d7f716cc3c18fa61c3641edb424e53e0f155ef20bf7618bee",
+                "0xe2f9005de21fa79df9de0b2828b88081542e1d9b9ddec4fe1ae5b39bc7fb386c"
+              ]
+            },
+            {
+              "name": "dest_zone",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "tdr3c1"
+              ]
+            },
+            {
+              "name": "max_price",
+              "observedTypes": [
+                "i32"
+              ],
+              "sampleValues": [
+                80,
+                180,
+                165
+              ]
+            },
+            {
+              "name": "project",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "bhaiyaplease"
+              ]
+            },
+            {
+              "name": "run",
+              "observedTypes": [
+                "key"
+              ],
+              "sampleValues": [
+                "0x587164c59294ae8f90315dadc8e7e9bf09adb1e73a44cb65689bd3c5e578b471",
+                "0xc9f5a284229644a70f8dc4a82e2a46e420599f558be66ec7c43ff6378dcb97b5",
+                "0x6ac50ba4dafd84d6c8f9a8dd0edfb273f68e8ed8d4102a24d9ad14135fc93041"
+              ]
+            },
+            {
+              "name": "shop",
+              "observedTypes": [
+                "key"
+              ],
+              "sampleValues": [
+                "0x8732e536834f20e53935694b8845c4626f25d887d17ef4f8b7d53b6206f5305e",
+                "0xb4797866adddbc76d161e79255a4d52a11f53e47ada80094de5f71ff3bf0f224",
+                "0x2af12111c5a163fd3691184e2628628e43e4476cffc9b7dfa3da96f588e82675"
+              ]
+            },
+            {
+              "name": "tip",
+              "observedTypes": [
+                "i32"
+              ],
+              "sampleValues": [
+                10,
+                40,
+                30
+              ]
+            },
+            {
+              "name": "type",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "request"
+              ]
+            }
+          ]
+        },
+        {
+          "entityType": "receipt",
+          "count": 39,
+          "attributes": [
+            {
+              "name": "at",
+              "observedTypes": [
+                "u64"
+              ],
+              "sampleValues": [
+                "0x6ad17c59",
+                "0x6ad17c29",
+                "0x6ad17bf4"
+              ]
+            },
+            {
+              "name": "delivery",
+              "observedTypes": [
+                "key"
+              ],
+              "sampleValues": [
+                "0x25e49dcff6d46332058147ea683853e8b6ec78fd7e93b8c2de2909afac6bdb9d",
+                "0x3ec466568361bf8d1f00b3f38207ef66882500784899c9fb5e57a6354e95b8a9",
+                "0x55370dfe5145af9385cda8e91c1ba62a29d68cf485cd98650b7eac5e77b85a0d"
+              ]
+            },
+            {
+              "name": "project",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "bhaiyaplease"
+              ]
+            },
+            {
+              "name": "rider",
+              "observedTypes": [
+                "addr"
+              ],
+              "sampleValues": [
+                "0x280e00fd992aa5eec367846df3501858dcf955da",
+                "0x21f758e41831e8fed3486a8fa3d894a12f69cc1a",
+                "0x7b9c76f7d847dd5dd244507ce883fa51b8f2e33a"
+              ]
+            },
+            {
+              "name": "type",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "receipt"
+              ]
+            },
+            {
+              "name": "zone",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "tdr3c1"
+              ]
+            }
+          ]
+        },
+        {
+          "entityType": "shop",
+          "count": 5,
+          "attributes": [
+            {
+              "name": "category",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "household",
+                "stationery",
+                "pharmacy_otc"
+              ]
+            },
+            {
+              "name": "name_tag",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "Ghar Ka Saaman",
+                "Pencil Box Stationers",
+                "Tulsi OTC Corner"
+              ]
+            },
+            {
+              "name": "project",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "bhaiyaplease"
+              ]
+            },
+            {
+              "name": "type",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "shop"
+              ]
+            },
+            {
+              "name": "zone",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "tdr3c1",
+                "tdr3c4"
+              ]
+            },
+            {
+              "name": "zone5",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "tdr3c"
+              ]
+            }
+          ]
+        },
+        {
+          "entityType": "attestation",
+          "count": 3,
+          "attributes": [
+            {
+              "name": "at",
+              "observedTypes": [
+                "u64"
+              ],
+              "sampleValues": [
+                "0x6ad17a64",
+                "0x6ad17748",
+                "0x6ad173a5"
+              ]
+            },
+            {
+              "name": "level",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "id_checked"
+              ]
+            },
+            {
+              "name": "project",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "bhaiyaplease"
+              ]
+            },
+            {
+              "name": "subject",
+              "observedTypes": [
+                "addr"
+              ],
+              "sampleValues": [
+                "0x7b9c76f7d847dd5dd244507ce883fa51b8f2e33a",
+                "0x21f758e41831e8fed3486a8fa3d894a12f69cc1a",
+                "0x2358951d3eaa17f4145829b98e5a2ea135d7eafe"
+              ]
+            },
+            {
+              "name": "type",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "attestation"
+              ]
+            }
+          ]
+        },
+        {
+          "entityType": "complaint",
+          "count": 1,
+          "attributes": [
+            {
+              "name": "at",
+              "observedTypes": [
+                "u64"
+              ],
+              "sampleValues": [
+                "0x6ad17b91"
+              ]
+            },
+            {
+              "name": "project",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "bhaiyaplease"
+              ]
+            },
+            {
+              "name": "reason",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "wrong_item"
+              ]
+            },
+            {
+              "name": "request",
+              "observedTypes": [
+                "key"
+              ],
+              "sampleValues": [
+                "0x8e6768abfe19fbb6fdcd509a2aba0f323fe635bed3db2b9fa7f4be83f7314175"
+              ]
+            },
+            {
+              "name": "rider",
+              "observedTypes": [
+                "addr"
+              ],
+              "sampleValues": [
+                "0x7b9c76f7d847dd5dd244507ce883fa51b8f2e33a"
+              ]
+            },
+            {
+              "name": "type",
+              "observedTypes": [
+                "str"
+              ],
+              "sampleValues": [
+                "complaint"
+              ]
+            }
+          ]
+        }
+      ],
+      "snapshotBlock": "0xa25fe",
+      "snapshotBlockNumber": 665086,
+      "pages": 1
+    }
+  },
+  "rpcCallsThisRun": 0,
+  "cachedResponses": 0,
+  "chainWideCount": 10194
+}
