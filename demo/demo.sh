@@ -15,6 +15,12 @@ cd "$(dirname "$0")/.."
 export ARKIV_ACCESS_KEY="${ARKIV_ACCESS_KEY:-$(sed -n 's/^export ARKIV_ACCESS_KEY=//p' "$HOME/.arkiv_env" 2>/dev/null)}"
 
 AUTO="${AUTO:-0}"
+# LIVE=1 makes the on-screen queries hit the RPC instead of the cache. Costs
+# roughly 700 units (~7% of the monthly quota). Default 0 = replay cached
+# responses, which are real live-chain responses, so the recording cannot be
+# derailed by a rate limit mid-take.
+LIVE="${LIVE:-0}"
+LIVEFLAG=""; [ "$LIVE" = "1" ] && LIVEFLAG="--live"
 PREWARM=0
 [ "${1:-}" = "--prewarm" ] && PREWARM=1
 
@@ -41,7 +47,7 @@ Q=(
 )
 
 runq() { # runq <label> <expression> [--live]
-  local label="$1" expr="$2" flag="${3:-}"
+  local label="$1" expr="$2" flag="${3:-$LIVEFLAG}"
   printf '  %s$%s %s%s\n' "$G" "$N" "$expr" "$N"
   node demo/q.mjs $flag "$expr"
 }
@@ -128,7 +134,7 @@ for p in "mandi potato price reports" "reports from fatehpur" "delivery receipts
   expr=$(node scripts/demo.mjs "$p" 2>/dev/null | sed -n 's/^EXPRESSION  //p')
   printf '  %s"%s"%s\n' "$B" "$p" "$N"
   printf '  %s->  %s%s\n' "$C" "$expr" "$N"
-  node demo/q.mjs "$expr"
+  node demo/q.mjs $LIVEFLAG "$expr"
   echo
   hold 8
 done
