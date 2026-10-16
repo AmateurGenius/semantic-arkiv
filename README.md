@@ -167,15 +167,18 @@ That is the empty-intersection probe, and it is now the first diagnostic in
 
 ## Filed back
 
-Seven friction findings from this work; four filed as issues against the Arkiv
-skills repo before submission. Copy-pasteable bodies: `arkiv/issues-to-file.md`.
-Full evidence: `arkiv/friction.md`.
+Seven friction findings from this work; four filed as issues against
+[Arkiv-Network/skills](https://github.com/Arkiv-Network/skills) **before**
+submission. Full evidence: `arkiv/friction.md`.
 
-| Finding | Summary |
+| Issue | Finding |
 | --- | --- |
-| F-7 | `entity_type` is documented as the discriminator; `type` is used 29× more often |
-| F-1 | camelCase attribute names parse on read and can never match a stored cell |
-| F-6 | 29 attribute names carry multiple types across projects (`epoch` carries three) |
-| STARTSWITH | infix syntax undocumented; the function form is rejected |
+| [#58](https://github.com/Arkiv-Network/skills/issues/58) | **F-7** — `entity_type` is documented as the discriminator; `type` is used 29× more often |
+| [#59](https://github.com/Arkiv-Network/skills/issues/59) | **F-1** — camelCase attribute names parse on read and can never match a stored cell |
+| [#60](https://github.com/Arkiv-Network/skills/issues/60) | **F-6** — 29 attribute names carry multiple types across projects (`epoch` carries three) |
+| [#61](https://github.com/Arkiv-Network/skills/issues/61) | **STARTSWITH** — infix syntax undocumented; the function form is rejected |
+
+Filed 2026-10-16 against Tiramisu, SDK `@arkiv-network/sdk` 0.8.1, chain
+`7738577` (`0x7614d1`).
 
 ## License

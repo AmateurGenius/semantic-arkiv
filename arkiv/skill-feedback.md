@@ -174,10 +174,12 @@ body in the query skill.
 
 ## Status
 
-| # | Gap | Impact |
-| --- | --- | --- |
-| 1 | STARTSWITH syntax undocumented | 1-in-3 guess rate |
-| 2 | camelCase read/write asymmetry unwarned | silent wrong answer |
-| 3 | Type ambiguity not illustrated cross-project | silent partial results |
-| 4 | `entity_type` documented instead of `type` | silent `0` rows |
-| — | Access key presented as optional | hard blocker mid-session |
+Filed 2026-10-16 against `Arkiv-Network/skills`:
+
+| Issue | # | Gap | Impact |
+| --- | --- | --- | --- |
+| F-7 | [#58](https://github.com/Arkiv-Network/skills/issues/58) | `entity_type` documented instead of `type` | silent `0` rows |
+| F-1 | [#59](https://github.com/Arkiv-Network/skills/issues/59) | camelCase read/write asymmetry unwarned | silent wrong answer |
+| F-6 | [#60](https://github.com/Arkiv-Network/skills/issues/60) | Type ambiguity not illustrated cross-project | silent partial results |
+| STARTSWITH | [#61](https://github.com/Arkiv-Network/skills/issues/61) | STARTSWITH syntax undocumented | 1-in-3 guess rate |
+| — | not filed | Access key presented as optional | hard blocker mid-session |
