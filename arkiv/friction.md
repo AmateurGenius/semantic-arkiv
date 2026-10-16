@@ -264,6 +264,39 @@ pair rather than per project.
 
 ---
 
+## Client-side observation (not an Arkiv defect)
+
+Recorded here because it produced the same symptom as F-5 and cost real time to
+diagnose.
+
+`probe.mjs` built its request headers as a module-level constant:
+
+```js
+const HEADERS = { 'content-type': 'application/json', 'user-agent': '...' };
+```
+
+The access key was read from `process.env.ARKIV_ACCESS_KEY` **nowhere**, so
+exporting the key had no effect and every query returned `ANON_COST_LIMITED`.
+A separate `--check-budget` code path built its own headers and passed, which
+made the key look valid while the main probe stayed on the anonymous tier.
+
+The fix is to build headers per call:
+
+```js
+const HEADERS = () => ({
+  'content-type': 'application/json',
+  'user-agent': '...',
+  ...(process.env.ARKIV_ACCESS_KEY ? { 'x-api-key': process.env.ARKIV_ACCESS_KEY } : {}),
+});
+```
+
+**Lesson for anyone building against this RPC:** a missing key does not fail
+loudly. It degrades to a metered anonymous tier whose budget runs out, and the
+resulting 429 is indistinguishable from ordinary rate limiting unless you read
+the response body for `ANON_COST_LIMITED`.
+
+---
+
 ## Summary
 
 | ID | Finding | Node response | Severity |

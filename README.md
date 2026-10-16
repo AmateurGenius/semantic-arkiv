@@ -144,6 +144,38 @@ build plan's fictional schema and is therefore *correctly* refused.
   because Arkiv has no server-side time window.
 - No write path. This project is read-only by design.
 
-## License
+## Build log — what measurement caught that inspection missed
 
-MIT. See `LICENSE`.
+Three defects in this project were found by running against live data, not by
+reading code. They are recorded because they make the same argument the project
+makes about agents: syntax without semantics returns nothing, and you cannot
+tell until you look.
+
+| # | Defect | How it presented | Root cause |
+| --- | --- | --- | --- |
+| 1 | Cache-key collision | Three anchor projects reported identical counts (97/97/97) from one cached response | The cache key truncated the params hash to 16 bytes, and every query expression begins with `["project = str('` |
+| 2 | Wrong discriminator grouping | A compound filter returned 0 while both of its terms returned non-zero — looked like data sparsity | The probe grouped entities by `entity_type`, which these projects do not use, merging distinct logical entity types into a single attribute map |
+| 3 | Client auth silently not applied | Every probe returned `ANON_COST_LIMITED` despite an exported key | A module-level header constant captured at import time never saw the environment variable |
+
+Defects 1 and 2 both produced **plausible output**. The cache collision looked
+like three coincidentally-equal projects. The grouping bug looked like sparse
+data. Neither raised an error. Both were caught only by counting each term of a
+filter separately and comparing the parts against the total.
+
+That is the empty-intersection probe, and it is now the first diagnostic in
+`arkiv/schema.md`.
+
+## Filed back
+
+Seven friction findings from this work; four filed as issues against the Arkiv
+skills repo before submission. Copy-pasteable bodies: `arkiv/issues-to-file.md`.
+Full evidence: `arkiv/friction.md`.
+
+| Finding | Summary |
+| --- | --- |
+| F-7 | `entity_type` is documented as the discriminator; `type` is used 29× more often |
+| F-1 | camelCase attribute names parse on read and can never match a stored cell |
+| F-6 | 29 attribute names carry multiple types across projects (`epoch` carries three) |
+| STARTSWITH | infix syntax undocumented; the function form is rejected |
+
+## License

@@ -1,0 +1,102 @@
+[H[2J[3J
+── 1/5  F-7  ·  following the data-modeling guide ──────────────────────────────────────────────
+  Arkiv's guide says: project + entity_type scopes an application's data.
+  Let's follow it exactly.
+
+  query 1 — the documented discriminator, unscoped:
+  $ entity_type = str('price_report')
+    0  entity_type = str('price_report')   [cache]
+
+  query 2 — the documented discriminator, scoped to the right project:
+  $ project = str('mandi_board_v1') AND entity_type = str('price_report')
+    0  project = str('mandi_board_v1') AND entity_type = str('price_report')   [cache]
+
+  Both return 0 rows. Neither errors.
+  This project has 97 entities and price reports are the majority of them.
+
+  query 3 — same project, same data, the REAL discriminator:
+  $ project = str('mandi_board_v1') AND type = str('price_report')
+   63  project = str('mandi_board_v1') AND type = str('price_report')   [cache]
+
+  63 rows.
+  query 4 — the other type value in the same project:
+  $ project = str('mandi_board_v1') AND type = str('price_vote')
+   34  project = str('mandi_board_v1') AND type = str('price_vote')   [cache]
+
+  63 + 34 = 97. The project was fully populated the whole time.
+
+── 2/5  ·  what is actually on chain ──────────────────────────────────────────────
+  entities on Tiramisu     10,100
+  project namespaces       33
+  distinct entity types    25
+  distinct attribute names 2,191  (507 real, 1684 load-generator)
+  multi-type attributes    29
+
+  type          observed 5,425 times
+  entity_type   observed   185 times
+
+  The documented discriminator is used 3% of the time.
+  The undocumented one is used 97% of the time.
+  There is no global schema. 507 ad-hoc attributes, 29 of them carrying
+  more than one type across projects.
+
+── 3/5  ·  ontoskill resolves real prompts ──────────────────────────────────────────────
+  first: the markdown-only agent, on the same prompt.
+
+  $ project = "mandi_board_v1" && type = "price_vote" && crop = "potato" && price >= 0
+ node  rejected: unexpected character   [cache]
+
+  The node rejects it outright. All ten markdown-only prompts were rejected.
+
+  now ontoskill. It emits a filter — and we run exactly what it emitted:
+
+  "mandi potato price reports"
+  ->  project = str('mandi_board_v1') AND type = str('price_report') AND crop = str('potato') AND price >= dec(0)
+    9  project = str('mandi_board_v1') AND type = str('price_report') AND crop = str('potato') AND price >= dec(0)   [cache]
+
+  "reports from fatehpur"
+  ->  project = str('underthetable') AND type = str('report') AND district = str('fatehpur')
+    1  project = str('underthetable') AND type = str('report') AND district = str('fatehpur')   [cache]
+
+  "delivery receipts in tdr3c1"
+  ->  project = str('bhaiyaplease') AND type = str('receipt') AND zone = str('tdr3c1')
+   39  project = str('bhaiyaplease') AND type = str('receipt') AND zone = str('tdr3c1')   [cache]
+
+  Real rows, from real projects, on the live chain.
+  And note what it did not emit: entity_type.
+
+── 4/5  ·  measured, 10 prompts, both conditions ──────────────────────────────────────────────
+
+  metric                     markdown-only ->  ontology
+  -------------------------- ------------    ------------
+  grammar-valid              0%           ->  100%
+  silent-zero risk           70%          ->  0%
+  prompts returning rows     0%           ->  90%
+  rejected by the node       100%         ->  0%
+  guidance bytes             52,534       ->  2,334
+
+  guidance reduction: 95.6%
+  prompts: 10   live RPC cost this run: 1000
+
+  Grammar-valid 0 to 100. Silent-zero risk 70 to 0. Real rows 0 to 90.
+  Guidance the agent must read: 52 kilobytes down to 2.3.
+
+  and the query budget is per-method, which makes a spent quota look
+  like an intermittent fault — arkiv_query 0 remaining while
+  arkiv_getEntityCount reports 599 of 600.
+
+── 5/5  ·  what ships ──────────────────────────────────────────────
+  zero-dependency Node MCP server      4 tools
+  vocabulary ontology                  2,946 triples
+  SHACL constraints on emitted filters 14
+  smoke tests on a clean checkout      11/11, zero install
+  friction findings filed back         7
+  licence                              MIT
+
+  Every emitted filter is grounded in vocabulary read off the live chain.
+  The ontology refuses to invent a name it cannot attest.
+
+  Semantic Arkiv. MIT. Repo in the description.
+
+   — end —
+
