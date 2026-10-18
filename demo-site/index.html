@@ -396,6 +396,82 @@ nav a:hover { color: var(--fg); }
   </div>
 </section>
 
+<section id="scoped">
+  <div class="container">
+    <div class="reveal">
+      <span class="badge badge-cyan">Scoped Queries</span>
+      <h2 style="margin-top:12px;">Query by provenance and authority</h2>
+      <p>Arkiv exposes two system attributes for scoped reads: <code class="mono" style="color:var(--cyan);">$creator</code> (original publisher, use for provenance) and <code class="mono" style="color:var(--cyan);">$owner</code> (mutation authority, changes on transfer). Both are <code class="mono">addr</code> typed.</p>
+    </div>
+    <div class="gap-container">
+      <div class="card gap-pane reveal">
+        <div class="pane-header">
+          <span class="badge badge-green">Provenance</span>
+        </div>
+        <div class="code-block">
+<span class="c">-- all entities created by this address</span>
+<span class="f">$creator</span> = <span class="n">addr</span>(<span class="s">'0xd5055b36ad00d54dacffb2340da0962f16207b30'</span>)
+        </div>
+        <div class="pane-result">
+          <span class="row-count green">100</span>
+          <span class="pane-label">entities by this creator on mandi_board_v1</span>
+        </div>
+      </div>
+      <div class="card gap-pane reveal">
+        <div class="pane-header">
+          <span class="badge badge-amber">Mutation Authority</span>
+        </div>
+        <div class="code-block">
+<span class="c">-- all entities currently owned by this address</span>
+<span class="f">$owner</span> = <span class="n">addr</span>(<span class="s">'0xd5055b36ad00d54dacffb2340da0962f16207b30'</span>)
+        </div>
+        <div class="pane-result">
+          <span class="row-count green">100</span>
+          <span class="pane-label">entities owned (same unless transferred)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="writepath">
+  <div class="container">
+    <div class="reveal">
+      <span class="badge badge-green">Write Path</span>
+      <h2 style="margin-top:12px;">Create your own ontology on Arkiv</h2>
+      <p>Arkiv entities are created via a native system address — no contract deployment, no Solidity. The <code class="mono" style="color:var(--cyan);">execute</code> function takes an array of operations and returns the created keys.</p>
+    </div>
+    <div class="card reveal" style="margin-top:24px;">
+      <h3 style="margin-bottom:12px;">Native write interface</h3>
+      <div class="code-block" style="margin-bottom:16px;">
+<span class="k">address</span> <span class="f">ARKIV_SYSTEM</span> = <span class="s">'0x44000000000000000000000000000000044'</span>
+
+<span class="k">function</span> <span class="f">execute</span>(<span class="k">uint8</span> operation, <span class="k">bytes</span> operationData) <span class="k">returns</span> (<span class="k">bytes32</span>[] keys)
+
+<span class="c">// operation tags</span>
+<span class="c">// 1 = create    2 = patch    3 = extend</span>
+<span class="c">// 4 = transfer  5 = delete</span>
+      </div>
+      <h3 style="margin-bottom:12px;">Create an entity</h3>
+      <div class="code-block" style="margin-bottom:16px;">
+<span class="c">// operationData = abi.encode(attributes)</span>
+<span class="k">struct</span> <span class="f">Attribute</span> { <span class="k">string</span> name; <span class="k">string</span> type; <span class="k">string</span> value; }
+
+<span class="k">bytes</span> data = <span class="f">abi.encode</span>(Attribute[](
+  Attribute(<span class="s">"project"</span>, <span class="s">"str"</span>, <span class="s">"my_ontology"</span>),
+  Attribute(<span class="s">"type"</span>,    <span class="s">"str"</span>, <span class="s">"definition"</span>),
+  Attribute(<span class="s">"triples"</span>, <span class="s">"u64"</span>, <span class="s">"2705"</span>)
+));
+
+<span class="f">execute</span>([<span class="n">1</span>, data]);  <span class="c">// create → returns [key]</span>
+      </div>
+      <div class="card" style="background:rgba(34,211,238,0.05);border-color:rgba(34,211,238,0.2);">
+        <p style="font-size:0.875rem;"><strong style="color:var(--cyan);">Note.</strong> This project is read-only by design. The write path is shown for completeness — a natural extension is a write-side resolver that grounds mutations in the same vocabulary used for reads.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="build">
   <div class="container">
     <div class="reveal">
