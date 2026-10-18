@@ -159,6 +159,40 @@ console.log(vocab.attributes.get('price'));
 // { observations: 74, observedTypes: ['dec'] }
 ```
 
+## What can be built on & with Semantic Arkiv
+
+Semantic Arkiv is infrastructure — a resolution layer between natural language and Arkiv's query grammar. Here is what each group can build with it.
+
+### Everyday Arkiv users
+
+- **Natural language → Arkiv queries.** Pipe questions into the CLI or MCP server, get a valid filter back. No grammar lookup, no vocabulary browsing.
+- **Query validation.** Run `validate_filter` on any expression before sending it to the node. Catches silent-zero traps (camelCase names, bare decimals, wrong discriminator) before they return empty.
+- **Vocabulary inspection.** Use `arkiv_vocabulary` to browse attested projects, entity types, and attributes. Discover what exists on chain without walking it yourself.
+
+### Agent builders
+
+- **MCP tool integration.** Add the server to any MCP client and give agents the ability to query Arkiv. Four tools: `ontoskill`, `validate_filter`, `arkiv_vocabulary`, `arkiv_query`.
+- **Library import.** Embed `resolve()` and `loadVocabulary()` into custom tools. The resolver is framework-agnostic — no MCP required.
+- **Custom resolvers.** Fork `src/resolve.mjs` and add project-specific synonyms or domain logic. The vocabulary is the guardrail; the resolver is the extension point.
+
+### UI and dashboard builders
+
+- **Vocabulary explorer.** Render `data/global-vocabulary.json` as a browsable catalog of what exists on chain.
+- **Query debugger.** Build a side-by-side view of natural language input, resolved filter, and node response — the split-pane pattern from the demo site.
+- **Ontology visualizer.** Show the Turtle ontology as a graph: projects → entity types → attributes, with type ambiguity highlighted.
+
+### The Arkiv community
+
+- **Upstream integration.** The four friction reports (#58–#61) are filed against `Arkiv-Network/skills`. The grammar contract in `references/grammar-contract.md` is ready to merge into the official skills repo.
+- **SDK validation.** `src/grammar.mjs` exports `validateFilter` — a standalone function that checks any expression against the empirical grammar. Usable without the rest of the project.
+- **Documentation fixes.** The STARTSWITH infix form, the `type` discriminator, and the cost model are all documented here with live evidence. These can be lifted into the public docs.
+
+### The Semantic Arkiv project itself
+
+- **Wider vocabulary coverage.** The re-walk script (`scripts/rewalk.mjs`) refreshes the ontology as new projects appear on chain.
+- **Write path.** This project is read-only. A natural extension is a write-side resolver that grounds mutations in the same vocabulary.
+- **Multi-chain support.** The grammar contract is Tiramisu-specific. Porting to other Arkiv chains means re-probing the grammar and re-walking the vocabulary.
+
 ## Layout
 
 ```
