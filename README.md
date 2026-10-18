@@ -193,7 +193,7 @@ Semantic Arkiv is infrastructure — a resolution layer between natural language
 - **Write path.** This project is read-only. A natural extension is a write-side resolver that grounds mutations in the same vocabulary.
 - **Multi-chain support.** The grammar contract is Tiramisu-specific. Porting to other Arkiv chains means re-probing the grammar and re-walking the vocabulary.
 
-## How you use Arkiv
+## How we use Arkiv
 
 Every claim below is grounded in a specific Arkiv feature, measured live.
 
