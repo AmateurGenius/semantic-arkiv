@@ -2,7 +2,7 @@
 
 Derived from a live walk of `arkiv_query ["*"]` on
 `https://rpc.tiramisu.db-chain.testnet.arkiv.network`, chain `7738577`, 2026-10-16.
-Coverage: 45 pages × 200 = 9,000 rows of a 10,100-entity chain (~89%).
+Coverage: 48 pages × 200 = 5,773 rows of a 25,386-entity chain (~23%).
 
 Machine-readable: `data/global-vocabulary.json`. Ontology: `ontology/arkiv-vocab.ttl`.
 
@@ -51,10 +51,10 @@ This is the single most consequential finding, and it was discovered the hard
 way — by building a resolver that emitted `entity_type` and watched it return
 zero rows.
 
-| Attribute | Observations (9,000-row walk) |
+| Attribute | Observations (5,773-row walk) |
 | --- | --- |
-| `type` | **5,425** |
-| `entity_type` | 185 |
+| `type` | **2,220** |
+| `entity_type` | 386 |
 
 `type` is the real discriminator in practice. Measured per namespace:
 
@@ -96,7 +96,7 @@ Note what is **absent**: `listing`, `profile`, `certification`, `mentor`,
 
 ## 4. Attribute vocabulary
 
-507 real application attributes. The most frequently observed:
+415 real application attributes. The most frequently observed:
 
 | attribute | observations | type(s) |
 | --- | --- | --- |

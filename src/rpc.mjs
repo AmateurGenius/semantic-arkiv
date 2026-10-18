@@ -11,6 +11,12 @@
  *
  * Therefore: every response is cached to disk, every request is paced, and the
  * client refuses to start a query when the remaining budget is too low.
+ *
+ * Error responses are cached too. A node rejection (-32001/-32002/-32003) is a
+ * real response and a deterministic one, so replaying it is as safe as
+ * replaying a count. Caching it also keeps a replay-only workload off the
+ * network entirely: the error path used to throw before the cache write, which
+ * made every rejection a live call on every run.
  */
 import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
@@ -36,7 +42,7 @@ export class BudgetExhausted extends Error {
   }
 }
 
-export function createClient({ apiKey = process.env.ARKIV_ACCESS_KEY, paceMs = 1200, useCache = true } = {}) {
+export function createClient({ apiKey = process.env.ARKIV_ACCESS_KEY, paceMs = 1200, useCache = true, cacheErrors = true } = {}) {
   const stats = { requests: 0, cacheHits: 0, cacheWrites: 0, cost: 0, quotaUsedPercent: null, budgetExhausted: 0 };
 
   async function raw(method, params, { retries = 4 } = {}) {
@@ -44,17 +50,34 @@ export function createClient({ apiKey = process.env.ARKIV_ACCESS_KEY, paceMs = 1
     const file = path.join(CACHE_DIR, key);
     if (useCache && existsSync(file)) {
       stats.cacheHits++;
-      return JSON.parse(await readFile(file, 'utf8'));
+      const cached = JSON.parse(await readFile(file, 'utf8'));
+      if (cached && cached.__error) {
+        const e = new Error(cached.__error.message);
+        e.code = cached.__error.code;
+        e.fromCache = true;
+        throw e;
+      }
+      return cached;
     }
 
     const headers = { 'content-type': 'application/json', 'user-agent': 'semantic-arkiv/1.0.0' };
     if (apiKey) headers['x-api-key'] = apiKey;
 
     for (let attempt = 0; attempt <= retries; attempt++) {
-      const res = await fetch(NETWORK.rpc, {
-        method: 'POST', headers,
-        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }),
-      });
+      let res;
+      try {
+        res = await fetch(NETWORK.rpc, {
+          method: 'POST', headers,
+          body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }),
+        });
+      } catch (e) {
+        // Network-level failure (DNS, TLS, connection reset). Retry with backoff.
+        if (attempt < retries) {
+          await sleep(Math.min(30_000, 1000 * 2 ** attempt));
+          continue;
+        }
+        throw e;
+      }
       stats.requests++;
 
       const cost = res.headers.get('arkiv-cost');
@@ -73,10 +96,33 @@ export function createClient({ apiKey = process.env.ARKIV_ACCESS_KEY, paceMs = 1
         continue;
       }
 
-      const body = await res.json();
+      // Non-OK status (5xx, WAF blocks, etc.) — retry with backoff.
+      // 504 Gateway Timeout needs a longer wait than 429 rate limits.
+      if (!res.ok && attempt < retries) {
+        const wait = res.status === 504 ? 5000 * 2 ** attempt : 1500 * 2 ** attempt;
+        await sleep(Math.min(60_000, wait));
+        continue;
+      }
+
+      let body;
+      try {
+        body = await res.json();
+      } catch (e) {
+        // HTML error page or other non-JSON response
+        if (attempt < retries) {
+          await sleep(Math.min(30_000, 1500 * 2 ** attempt));
+          continue;
+        }
+        throw new Error(`RPC returned non-JSON response (HTTP ${res.status})`);
+      }
       if (body.error) {
         const e = new Error(body.error.message);
         e.code = body.error.code;
+        if (cacheErrors) {
+          await mkdir(CACHE_DIR, { recursive: true });
+          await writeFile(file, JSON.stringify({ __error: { code: body.error.code, message: body.error.message } }));
+          stats.cacheWrites++;
+        }
         throw e;
       }
       await mkdir(CACHE_DIR, { recursive: true });

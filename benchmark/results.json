@@ -23,16 +23,16 @@
       "silentZeroRate": 0,
       "liveRowsRate": 90,
       "parseErrorRate": 0,
-      "totalExpressionBytes": 679,
-      "totalGuidanceBytes": 2334
+      "totalExpressionBytes": 707,
+      "totalGuidanceBytes": 2367
     },
     "budgetExhausted": 0,
     "rpcStats": {
-      "requests": 10,
-      "cacheHits": 28,
-      "cacheWrites": 0,
-      "cost": 1000,
-      "quotaUsedPercent": 1,
+      "requests": 17,
+      "cacheHits": 23,
+      "cacheWrites": 17,
+      "cost": 1700,
+      "quotaUsedPercent": 2,
       "budgetExhausted": 0
     }
   },
@@ -62,22 +62,23 @@
       },
       "B": {
         "condition": "ontology (ontoskill)",
-        "expression": "",
+        "expression": "entity_type = str('account')",
         "grammarValid": true,
         "violations": [],
         "silentZeroRisk": false,
         "live": {
-          "outcome": "no-expression"
+          "outcome": "silent-zero",
+          "rows": 0,
+          "hasCursor": false
         },
         "confidence": "low",
         "disambiguation": 0,
         "warnings": [
           "unresolved-namespace",
-          "no-attested-entity-type",
           "no-attested-attribute"
         ],
-        "expressionBytes": 0,
-        "guidanceBytes": 129
+        "expressionBytes": 28,
+        "guidanceBytes": 162
       }
     },
     {

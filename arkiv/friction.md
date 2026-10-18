@@ -134,7 +134,7 @@ and the skill provides no example.
 | `bool(true)` | `-32003 bool takes no wrapper — write the literal true or false` |
 | `active = true` | accepted |
 | `$createdAt >= 0` | `-32002 this system attribute holds u64 — write u64(0)` |
-| `$createdAt >= u64(0)` | accepted (10,100 rows) |
+| `$createdAt >= u64(0)` | accepted (25,386 rows) |
 | `str("x")` | `-32003 str takes a single-quoted string, e.g. str('Bob')` |
 
 **Why it matters.** `dec()` takes bare digits while `str()` requires quotes —
@@ -190,11 +190,11 @@ recommend a key for anything beyond interactive exploration.
 
 ---
 
-## F-6 — Type-ambiguous attribute names (29 of them)
+## F-6 — Type-ambiguous attribute names (20 of them)
 
 **Expected.** An attribute name has one type.
 
-**Actual.** 29 names carry multiple types across projects. Full table in
+**Actual.** 20 names carry multiple types across projects. Full table in
 `schema.md` §4.1.
 
 ```bash
@@ -223,7 +223,7 @@ recommend widening: `(v >= i32(1) OR v >= u64(1))`.
 
 An agent reads that and emits `entity_type = str('...')` for every query.
 
-**Actual.** `type` is 29× more common than `entity_type`, and the three largest
+**Actual.** `type` is 5.8× more common than `entity_type`, and the three largest
 non-synthetic projects use `type` exclusively.
 
 ```bash
@@ -235,8 +235,8 @@ curl -s ... -d '{"...":{"query":"project = str(\"mandi_board_v1\") AND type = st
 
 | Attribute | Observations |
 | --- | --- |
-| `type` | 5,425 |
-| `entity_type` | 185 |
+| `type` | 2,220 |
+| `entity_type` | 386 |
 
 Per namespace: mandi_board_v1 uses `type` (`price_report`, `price_vote`),
 underthetable uses `type` (`report`, `attestation`), bhaiyaplease uses `type`
@@ -306,7 +306,7 @@ the response body for `ANON_COST_LIMITED`.
 | F-3 | STARTSWITH infix only, undocumented | `-32001` | Medium |
 | F-4 | Inconsistent literal constructors | `-32001` / `-32003` | Medium |
 | F-5 | Cost-metered anonymous budget | `429 ANON_COST_LIMITED` | High |
-| F-6 | 29 type-ambiguous names | silent partial results | **Critical** |
+| F-6 | 20 type-ambiguous names | silent partial results | **Critical** |
 | F-7 | `type` vs `entity_type` discriminator | silent `0` rows | **Critical** |
 
 F-1, F-6 and F-7 are the dangerous trio: each produces a query that succeeds

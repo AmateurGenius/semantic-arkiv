@@ -128,13 +128,13 @@ Widen explicitly when you cannot scope to a single project:
 > `project` plus `entity_type` scopes an application's data.
 
 **Problem.** Agents follow this and emit `entity_type`. Measured on the live
-shared database, `type` is 29× more common and the three largest non-synthetic
+shared database, `type` is 5.8× more common and the three largest non-synthetic
 projects use `type` exclusively:
 
-| Attribute | Observations (9,000-row walk) |
+| Attribute | Observations (5,773-row walk) |
 | --- | --- |
-| `type` | **5,425** |
-| `entity_type` | 185 |
+| `type` | **2,220** |
+| `entity_type` | 386 |
 
 ```text
 project = str('mandi_board_v1') AND entity_type = str('price_report')  -> 0

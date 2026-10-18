@@ -1,71 +1,80 @@
 [H[2J[3J
-── 1/5  F-7  ·  following the data-modeling guide ──────────────────────────────────────────────
-  Arkiv's guide says: project + entity_type scopes an application's data.
-  Let's follow it exactly.
+[1m[36m── 1/5  F-7  ·  following the data-modeling guide ──────────────────────────────────────────────[0m
+  [1mArkiv's guide says: project + entity_type scopes an application's data.[0m
+  [1mLet's follow it exactly.[0m
 
-  query 1 — the documented discriminator, unscoped:
-  $ entity_type = str('price_report')
-    0  entity_type = str('price_report')   [cache]
+  [2mquery 1 — the documented discriminator, unscoped:[0m
+  [32m$[0m entity_type = str('price_report')[0m
+    0  entity_type = str('price_report')   [LIVE]
 
-  query 2 — the documented discriminator, scoped to the right project:
-  $ project = str('mandi_board_v1') AND entity_type = str('price_report')
-    0  project = str('mandi_board_v1') AND entity_type = str('price_report')   [cache]
+  [2mquery 2 — the documented discriminator, scoped to the right project:[0m
+  [32m$[0m project = str('mandi_board_v1') AND entity_type = str('price_report')[0m
+    0  project = str('mandi_board_v1') AND entity_type = str('price_report')   [LIVE]
 
-  Both return 0 rows. Neither errors.
-  This project has 97 entities and price reports are the majority of them.
+  [1m[31mBoth return 0 rows. Neither errors.[0m[0m
 
-  query 3 — same project, same data, the REAL discriminator:
-  $ project = str('mandi_board_v1') AND type = str('price_report')
-   63  project = str('mandi_board_v1') AND type = str('price_report')   [cache]
+  [2mquery 3 — same project, same data, the REAL discriminator:[0m
+  [32m$[0m project = str('mandi_board_v1') AND type = str('price_report')[0m
+   64  project = str('mandi_board_v1') AND type = str('price_report')   [LIVE]
 
-  63 rows.
-  query 4 — the other type value in the same project:
-  $ project = str('mandi_board_v1') AND type = str('price_vote')
-   34  project = str('mandi_board_v1') AND type = str('price_vote')   [cache]
+  [1m[32m64 rows.[0m[0m
+  [2mquery 4 — the other type value in the same project:[0m
+  [32m$[0m project = str('mandi_board_v1') AND type = str('price_vote')[0m
+   36  project = str('mandi_board_v1') AND type = str('price_vote')   [LIVE]
 
-  63 + 34 = 97. The project was fully populated the whole time.
+  [2mquery 5 — the project's own total:[0m
+  [32m$[0m project = str('mandi_board_v1')[0m
+  100  project = str('mandi_board_v1')   [LIVE]
 
-── 2/5  ·  what is actually on chain ──────────────────────────────────────────────
-  entities on Tiramisu     10,100
-  project namespaces       33
-  distinct entity types    25
-  distinct attribute names 2,191  (507 real, 1684 load-generator)
-  multi-type attributes    29
+  [1m64 + 36 = 100. The project was fully populated the whole time.[0m
+  [1mEvery entity was there the whole time. The query was blind to it.[0m
 
-  type          observed 5,425 times
-  entity_type   observed   185 times
+[1m[36m── 2/5  ·  what is actually on chain ──────────────────────────────────────────────[0m
+  [2mthe entity total is a live read; the vocabulary figures are from a[0m
+  [2mlive walk of the chain, labelled on screen.[0m
 
-  The documented discriminator is used 3% of the time.
-  The undocumented one is used 97% of the time.
-  There is no global schema. 507 ad-hoc attributes, 29 of them carrying
-  more than one type across projects.
+  entities on Tiramisu      25,569   [live]
+  project namespaces            37   [3,773-row walk, 2026-10-18]
+  distinct entity types        100   [3,773-row walk, 2026-10-18]
+  distinct attribute names   2,783   [3,773-row walk, 2026-10-18]
+     real, load-generator-free      415
+     load-generator noise          2,368
+  attribute names carrying 20 types   [3,773-row walk, 2026-10-18]
 
-── 3/5  ·  ontoskill resolves real prompts ──────────────────────────────────────────────
-  first: the markdown-only agent, on the same prompt.
+  type          observed 2,220 times   [3,773-row walk, 2026-10-18]
+  entity_type   observed    386 times   [3,773-row walk, 2026-10-18]
 
-  $ project = "mandi_board_v1" && type = "price_vote" && crop = "potato" && price >= 0
- node  rejected: unexpected character   [cache]
 
-  The node rejects it outright. All ten markdown-only prompts were rejected.
+  [1mThe documented discriminator is the exception, not the rule.[0m
+  [1mThere is no global schema. Attribute names are invented per project,[0m
+  [1mand the same name can mean different types in different projects.[0m
 
-  now ontoskill. It emits a filter — and we run exactly what it emitted:
+[1m[36m── 3/5  ·  ontoskill resolves real prompts ──────────────────────────────────────────────[0m
+  [2mfirst: the markdown-only agent, on the same prompt.[0m
 
-  "mandi potato price reports"
-  ->  project = str('mandi_board_v1') AND type = str('price_report') AND crop = str('potato') AND price >= dec(0)
-    9  project = str('mandi_board_v1') AND type = str('price_report') AND crop = str('potato') AND price >= dec(0)   [cache]
+  [32m$[0m project = "mandi_board_v1" && type = "price_vote" && crop = "potato" && price >= 0
+ node  rejected: unexpected character   [LIVE]
 
-  "reports from fatehpur"
-  ->  project = str('underthetable') AND type = str('report') AND district = str('fatehpur')
-    1  project = str('underthetable') AND type = str('report') AND district = str('fatehpur')   [cache]
+  [1m[31mThe node rejects it outright. All ten markdown-only prompts were rejected.[0m[0m
 
-  "delivery receipts in tdr3c1"
-  ->  project = str('bhaiyaplease') AND type = str('receipt') AND zone = str('tdr3c1')
-   39  project = str('bhaiyaplease') AND type = str('receipt') AND zone = str('tdr3c1')   [cache]
+  [2mnow ontoskill. It emits a filter — and we run exactly what it emitted:[0m
 
-  Real rows, from real projects, on the live chain.
-  And note what it did not emit: entity_type.
+  [1m"mandi potato price reports"[0m
+  [36m->  project = str('mandi_board_v1') AND type = str('price_report') AND crop = str('potato') AND price >= dec(0)[0m
+    9  project = str('mandi_board_v1') AND type = str('price_report') AND crop = str('potato') AND price >= dec(0)   [LIVE]
 
-── 4/5  ·  measured, 10 prompts, both conditions ──────────────────────────────────────────────
+  [1m"reports from fatehpur"[0m
+  [36m->  project = str('underthetable') AND type = str('report') AND district = str('fatehpur')[0m
+    1  project = str('underthetable') AND type = str('report') AND district = str('fatehpur')   [LIVE]
+
+  [1m"delivery receipts in tdr3c1"[0m
+  [36m->  project = str('bhaiyaplease') AND type = str('receipt') AND zone = str('tdr3c1')[0m
+   42  project = str('bhaiyaplease') AND type = str('receipt') AND zone = str('tdr3c1')   [LIVE]
+
+  [1mReal rows, from real projects, on the live chain.[0m
+  [1mAnd note what it did [1mnot[0m emit: entity_type.[0m
+
+[1m[36m── 4/5  ·  measured, 10 prompts, both conditions ──────────────────────────────────────────────[0m
 
   metric                     markdown-only ->  ontology
   -------------------------- ------------    ------------
@@ -73,30 +82,30 @@
   silent-zero risk           70%          ->  0%
   prompts returning rows     0%           ->  90%
   rejected by the node       100%         ->  0%
-  guidance bytes             52,534       ->  2,334
+  guidance bytes             52,534       ->  2,367
 
-  guidance reduction: 95.6%
-  prompts: 10   live RPC cost this run: 1000
+  guidance reduction: 95.5%
+  prompts: 10   live RPC cost this run: 1700
 
-  Grammar-valid 0 to 100. Silent-zero risk 70 to 0. Real rows 0 to 90.
-  Guidance the agent must read: 52 kilobytes down to 2.3.
+  [1mGrammar-valid 0 to 100. Silent-zero risk 70 to 0. Real rows 0 to 90.[0m
+  [1mGuidance the agent must read: 52 kilobytes down to 2.3.[0m
 
-  and the query budget is per-method, which makes a spent quota look
-  like an intermittent fault — arkiv_query 0 remaining while
-  arkiv_getEntityCount reports 599 of 600.
+  [2mand the query budget is per-method, which makes a spent quota look[0m
+  [2mlike an intermittent fault — arkiv_query 0 remaining while[0m
+  [2markiv_getEntityCount reports 599 of 600.[0m
 
-── 5/5  ·  what ships ──────────────────────────────────────────────
+[1m[36m── 5/5  ·  what ships ──────────────────────────────────────────────[0m
   zero-dependency Node MCP server      4 tools
-  vocabulary ontology                  2,946 triples
+  vocabulary ontology                  2,705 triples
   SHACL constraints on emitted filters 14
   smoke tests on a clean checkout      11/11, zero install
-  friction findings filed back         7
+  friction findings filed back         7  (4 as upstream issues)
   licence                              MIT
 
-  Every emitted filter is grounded in vocabulary read off the live chain.
-  The ontology refuses to invent a name it cannot attest.
+  [1mEvery emitted filter is grounded in vocabulary read off the live chain.[0m
+  [1mThe ontology refuses to invent a name it cannot attest.[0m
 
-  Semantic Arkiv. MIT. Repo in the description.
+  [1m[1mSemantic Arkiv. MIT. Repo in the description.[0m[0m
 
-   — end —
+[2m   — end —[0m
 

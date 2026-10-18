@@ -24,9 +24,13 @@ const client = createClient({ useCache: !live, paceMs: 1200 });
 
 try {
   const n = await client.count(expr);
-  const src = live ? 'LIVE' : 'cache';
+  // Report where the bytes actually came from. The --live flag alone is not the
+  // truth: a missing cache entry falls through to the network and would still
+  // be labelled [cache]. One process = one call, so any request means live.
+  const src = client.stats.requests > 0 ? 'LIVE' : 'cache';
   console.log(`${String(n).padStart(5)}  ${expr}   [${src}]`);
 } catch (e) {
-  console.log(`${'node'.padStart(5)}  rejected: ${e.message?.slice(0, 78)}   [${live ? 'LIVE' : 'cache'}]`);
+  const src = client.stats.requests > 0 ? 'LIVE' : 'cache';
+  console.log(`${'node'.padStart(5)}  rejected: ${e.message?.slice(0, 78)}   [${src}]`);
   process.exit(1);
 }

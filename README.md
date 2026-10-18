@@ -14,14 +14,14 @@ filter that is correct by construction.
 
 ## The problem, measured
 
-A 45-page walk of the Tiramisu testnet (`arkiv_query ["*"]`, 9,000 rows) found:
+A 48-page walk of the Tiramisu testnet (5,773 rows) found:
 
 | Fact | Value |
 | --- | --- |
-| Distinct project namespaces | 33 |
-| Distinct `entity_type` values | 25 |
-| Distinct attribute names | 2,191 (1,684 are indexer noise → **507 real**) |
-| Attribute names carrying **more than one type** across projects | **29** |
+| Distinct project namespaces | 37 |
+| Distinct `entity_type` values | 100 |
+| Distinct attribute names | 2,783 (2,368 are indexer noise → **415 real**) |
+| Attribute names carrying **more than one type** across projects | **20** |
 | Global schema | **none** |
 
 There is no shared schema. Attribute names are per-project and often cryptic
@@ -68,7 +68,7 @@ gap instead.
 ```bash
 node scripts/build-ontology.mjs     # regenerate ontology/ from data/
 node scripts/demo.mjs               # inspect resolutions for sample intents
-node tests/mcp-smoke.mjs            # 10-check MCP handshake + tool test
+node tests/mcp-smoke.mjs            # 11-check MCP handshake + tool test
 node benchmark/run.mjs              # benchmark vs the markdown-only baseline
 node src/mcp-server.mjs             # speak MCP on stdin/stdout
 ```
@@ -88,10 +88,10 @@ implemented directly, so there is nothing to install and nothing to compile.
 ## Layout
 
 ```
-data/global-vocabulary.json      live-captured vocabulary (9,000 rows)
+data/global-vocabulary.json      live-captured vocabulary (5,773 rows)
 data/anchor-schemas.json         per-namespace schemas (see Limitations)
 data/rate-limit-evidence.json    the ANON_COST_LIMITED finding
-ontology/arkiv-vocab.ttl         the OWL 2 ontology (2,933 triples)
+ontology/arkiv-vocab.ttl         the OWL 2 ontology (2,705 triples)
 ontology/arkiv-grammar.shacl.ttl SHACL shapes for emitted expressions
 src/grammar.mjs                  the empirical grammar contract + validator
 src/resolve.mjs                  the resolver
@@ -173,9 +173,9 @@ submission. Full evidence: `arkiv/friction.md`.
 
 | Issue | Finding |
 | --- | --- |
-| [#58](https://github.com/Arkiv-Network/skills/issues/58) | **F-7** — `entity_type` is documented as the discriminator; `type` is used 29× more often |
+| [#58](https://github.com/Arkiv-Network/skills/issues/58) | **F-7** — `entity_type` is documented as the discriminator; `type` is used 5.8× more often |
 | [#59](https://github.com/Arkiv-Network/skills/issues/59) | **F-1** — camelCase attribute names parse on read and can never match a stored cell |
-| [#60](https://github.com/Arkiv-Network/skills/issues/60) | **F-6** — 29 attribute names carry multiple types across projects (`epoch` carries three) |
+| [#60](https://github.com/Arkiv-Network/skills/issues/60) | **F-6** — 20 attribute names carry multiple types across projects (`epoch` carries three) |
 | [#61](https://github.com/Arkiv-Network/skills/issues/61) | **STARTSWITH** — infix syntax undocumented; the function form is rejected |
 
 Filed 2026-10-16 against Tiramisu, SDK `@arkiv-network/sdk` 0.8.1, chain

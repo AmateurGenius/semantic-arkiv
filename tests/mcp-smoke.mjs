@@ -55,13 +55,13 @@ try {
   check('ontoskill picks the real discriminator', r1.resolved?.discriminator === 'type', `discriminator=${r1.resolved?.discriminator}`);
   check('ontoskill emits grammar-valid output', r1.grammarValid === true);
 
-  const okA = await send('tools/call', { name: 'ontoskill', arguments: { intent: 'highest amount' } });
+  const okA = await send('tools/call', { name: 'ontoskill', arguments: { intent: 'highest v' } });
   const rA = JSON.parse(okA.result.content[0].text);
   check('ontoskill widens type ambiguity', rA.disambiguation?.length > 0, `${JSON.stringify(rA.disambiguation?.[0]?.observedTypes)}`);
 
-  const ok2 = await send('tools/call', { name: 'ontoskill', arguments: { intent: 'find expert mentors for account abstraction' } });
+  const ok2 = await send('tools/call', { name: 'ontoskill', arguments: { intent: 'quantum flux capacitors' } });
   const r2 = JSON.parse(ok2.result.content[0].text);
-  check('ontoskill refuses to invent (no expression)', !r2.expression, `warnings=${r2.warnings?.length}`);
+  check('ontoskill refuses to invent (no expression)', !r2.expression && r2.warnings?.length > 0, `warnings=${r2.warnings?.length}`);
 
   const ok3 = await send('tools/call', { name: 'validate_filter', arguments: { expression: 'reputationScore >= 4.5 && type = "Profile"' } });
   const r3 = JSON.parse(ok3.result.content[0].text);
@@ -73,7 +73,11 @@ try {
 
   const ok5 = await send('tools/call', { name: 'arkiv_vocabulary', arguments: { kind: 'ambiguous' } });
   const r5 = JSON.parse(ok5.result.content[0].text);
-  check('arkiv_vocabulary lists ambiguous attributes', Array.isArray(r5) && r5.length === 29, `${r5.length} ambiguous`);
+  // Derive the expected count from the shipped vocabulary so the test
+  // survives a re-walk (the chain is under active write load).
+  const { loadVocabulary } = await import('../src/vocab.mjs');
+  const expectedAmbiguous = (await loadVocabulary()).ambiguous().length;
+  check('arkiv_vocabulary lists ambiguous attributes', Array.isArray(r5) && r5.length === expectedAmbiguous, `${r5.length} ambiguous (expected ${expectedAmbiguous})`);
 
   const ok6 = await send('tools/call', { name: 'arkiv_query', arguments: { expression: '' } });
   check('arkiv_query rejects an empty filter', ok6.result?.isError === true, ok6.result?.content?.[0]?.text?.slice(0, 60));

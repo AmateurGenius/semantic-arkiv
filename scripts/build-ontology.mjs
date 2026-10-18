@@ -122,7 +122,7 @@ async function main() {
     const anchor = JSON.parse(await readFile(anchorPath, 'utf8'));
     T.push('# ===== Anchor namespaces: real discriminator structure =====');
     T.push('# `type` is the conventional discriminator (5425 observations on a');
-    T.push('# 9000-row walk) far more often than `entity_type` (185). Attributes');
+    T.push(`# ${v.walkedRows.toLocaleString()}-row walk) far more often than \`entity_type\` (${v.attributes.entity_type?.observations ?? '?'}). Attributes`);
     T.push('# are scoped per (project, type-value) pair, not per project.');
     for (const [project, s] of Object.entries(anchor.projects ?? {})) {
       T.push(`arkv:ns_${local(project)} a arkiv:Project ;`);

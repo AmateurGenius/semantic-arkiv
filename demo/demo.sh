@@ -6,9 +6,16 @@
 #   bash demo/demo.sh               # the recording pass (press Enter to advance)
 #   AUTO=1 bash demo/demo.sh        # hands-free, fixed timings (for a dry run)
 #
-# Cache policy: everything is served from data/rpc-cache EXCEPT two calls
-# marked [LIVE]. Those two prove "real rows on screen" and cost ~200 units.
-# Do NOT re-run --prewarm repeatedly; you have ~100 queries/month.
+# Cache policy: LIVE=0 (default) replays data/rpc-cache for every query line and
+# takes the scan's entity total from the last observed probe, so the whole take
+# is offline and cannot be derailed by a rate limit. LIVE=1 makes every line on
+# screen a live read of Tiramisu — free (counts and rejections cost 0 units) and
+# honest, at the price of depending on the network.
+# Prove which mode a take will run:  node ~/verif/verify-demo-cache.mjs
+#
+# The Q array below is the --prewarm list and the only thing that spends
+# budget: ~10 live calls, and the rejection costs 0 units. Do NOT re-run
+# --prewarm repeatedly; you have ~100 queries/month.
 # ============================================================================
 set -uo pipefail
 cd "$(dirname "$0")/.."
@@ -19,8 +26,14 @@ AUTO="${AUTO:-0}"
 # roughly 700 units (~7% of the monthly quota). Default 0 = replay cached
 # responses, which are real live-chain responses, so the recording cannot be
 # derailed by a rate limit mid-take.
-LIVE="${LIVE:-0}"
+LIVE="${LIVE:-1}"
 LIVEFLAG=""; [ "$LIVE" = "1" ] && LIVEFLAG="--live"
+# LIVE=1 (default) makes every line on screen a live read of Tiramisu — free
+# (counts and rejections cost 0 units) and honest, at the price of depending
+# on the network. LIVE=0 replays data/rpc-cache for every query line and takes
+# the scan's entity total from the last observed probe, so the whole take is
+# offline and cannot be derailed by a rate limit.
+SCANFLAG=""; [ "$LIVE" = "0" ] && SCANFLAG="--cached"
 PREWARM=0
 [ "${1:-}" = "--prewarm" ] && PREWARM=1
 
@@ -35,21 +48,25 @@ hold() { # hold <seconds>  — Enter to advance, or fixed sleep in AUTO mode
 }
 
 # ---- the queries, in recording order --------------------------------------
-# Each: "<seconds>|<label>|<expression>|<live?>"
+# Each: "<seconds>|<label>|<expression>"  — used by --prewarm only.
 Q=(
-  "0|follow the docs: discriminator = entity_type|entity_type = str('price_report')|live"
-  "0|follow the docs, scoped to the project|project = str('mandi_board_v1') AND entity_type = str('price_report')|live"
-  "0|use the real discriminator: type|project = str('mandi_board_v1') AND type = str('price_report')|live"
-  "0|same project, the other type value|project = str('mandi_board_v1') AND type = str('price_vote')|live"
-  "0|resolved: mandi potato price votes|project = str('mandi_board_v1') AND type = str('price_report') AND crop = str('potato') AND price >= dec(0)|live"
-  "0|resolved: reports from fatehpur|project = str('underthetable') AND type = str('report') AND district = str('fatehpur')|live"
-  "0|resolved: delivery receipts in tdr3c1|project = str('bhaiyaplease') AND type = str('receipt') AND zone = str('tdr3c1')|live"
+  "0|follow the docs: discriminator = entity_type|entity_type = str('price_report')"
+  "0|follow the docs, scoped to the project|project = str('mandi_board_v1') AND entity_type = str('price_report')"
+  "0|use the real discriminator: type|project = str('mandi_board_v1') AND type = str('price_report')"
+  "0|same project, the other type value|project = str('mandi_board_v1') AND type = str('price_vote')"
+  "0|resolved: mandi potato price reports|project = str('mandi_board_v1') AND type = str('price_report') AND crop = str('potato') AND price >= dec(0)"
+  "0|resolved: reports from fatehpur|project = str('underthetable') AND type = str('report') AND district = str('fatehpur')"
+  "0|resolved: delivery receipts in tdr3c1|project = str('bhaiyaplease') AND type = str('receipt') AND zone = str('tdr3c1')"
 )
 
-runq() { # runq <label> <expression> [--live]
-  local label="$1" expr="$2" flag="${3:-$LIVEFLAG}"
+LAST=""
+runq() { # runq <expression>  — prints the query, leaves the count in $LAST
+  local expr="$1"
+  local out
   printf '  %s$%s %s%s\n' "$G" "$N" "$expr" "$N"
-  node demo/q.mjs $flag "$expr"
+  out=$(node demo/q.mjs $LIVEFLAG "$expr")
+  echo "$out"
+  LAST=$(printf '%s' "$out" | awk '{print $1}')
 }
 
 # ---- prewarm: fill the cache so the recording pass is free -----------------
@@ -75,45 +92,42 @@ say "Arkiv's guide says: project + entity_type scopes an application's data."
 say "Let's follow it exactly."
 echo
 note "query 1 — the documented discriminator, unscoped:"
-runq "" "entity_type = str('price_report')"
+runq "entity_type = str('price_report')"
 echo
 note "query 2 — the documented discriminator, scoped to the right project:"
-runq "" "project = str('mandi_board_v1') AND entity_type = str('price_report')"
+runq "project = str('mandi_board_v1') AND entity_type = str('price_report')"
 echo
 say "${R}Both return 0 rows. Neither errors.${N}"
-say "This project has 97 entities and price reports are the majority of them."
 echo
 hold 10
 note "query 3 — same project, same data, the REAL discriminator:"
-runq "" "project = str('mandi_board_v1') AND type = str('price_report')"
+runq "project = str('mandi_board_v1') AND type = str('price_report')"
+PRICE_REPORTS="$LAST"
 echo
-say "${G}63 rows.${N}"
+say "${G}${PRICE_REPORTS} rows.${N}"
 note "query 4 — the other type value in the same project:"
-runq "" "project = str('mandi_board_v1') AND type = str('price_vote')"
+runq "project = str('mandi_board_v1') AND type = str('price_vote')"
+PRICE_VOTES="$LAST"
 echo
-say "63 + 34 = 97. The project was fully populated the whole time."
+note "query 5 — the project's own total:"
+runq "project = str('mandi_board_v1')"
+PROJECT_TOTAL="$LAST"
+echo
+say "${PRICE_REPORTS} + ${PRICE_VOTES} = ${PROJECT_TOTAL}. The project was fully populated the whole time."
+say "Every entity was there the whole time. The query was blind to it."
 hold 12
 
 # ===========================================================================
 # SEGMENT 2 — 0:30-1:00  the scan
 # ===========================================================================
 seg "2/5  ·  what is actually on chain"
-node -e '
-const v=require("./data/global-vocabulary.json");
-console.log("  entities on Tiramisu     10,100");
-console.log("  project namespaces       "+v.counts.distinctProjects);
-console.log("  distinct entity types    "+v.counts.distinctEntityTypes);
-console.log("  distinct attribute names "+v.counts.distinctAttributeNamesTotal.toLocaleString()+"  ("+v.counts.realAttributes+" real, "+v.counts.baseloadNoise+" load-generator)");
-console.log("  multi-type attributes    "+v.counts.ambiguousAttributes);
-console.log("");
-console.log("  type          observed 5,425 times");
-console.log("  entity_type   observed   185 times");
-'
+note "the entity total is a live read; the vocabulary figures are from a"
+note "live walk of the chain, labelled on screen."
+node demo/scan.mjs $SCANFLAG
 echo
-say "The documented discriminator is used 3% of the time."
-say "The undocumented one is used 97% of the time."
-say "There is no global schema. 507 ad-hoc attributes, 29 of them carrying"
-say "more than one type across projects."
+say "The documented discriminator is the exception, not the rule."
+say "There is no global schema. Attribute names are invented per project,"
+say "and the same name can mean different types in different projects."
 hold 12
 
 # ===========================================================================
@@ -123,7 +137,7 @@ seg "3/5  ·  ontoskill resolves real prompts"
 note "first: the markdown-only agent, on the same prompt."
 echo
 printf '  %s$%s %s\n' "$G" "$N" "project = \"mandi_board_v1\" && type = \"price_vote\" && crop = \"potato\" && price >= 0"
-node demo/q.mjs 'project = "mandi_board_v1" && type = "price_vote" && crop = "potato" && price >= 0' 2>/dev/null
+node demo/q.mjs $LIVEFLAG 'project = "mandi_board_v1" && type = "price_vote" && crop = "potato" && price >= 0' 2>/dev/null
 echo
 say "${R}The node rejects it outright. All ten markdown-only prompts were rejected.${N}"
 hold 8
@@ -165,7 +179,7 @@ console.log("  zero-dependency Node MCP server      4 tools");
 console.log("  vocabulary ontology                  "+s.triples.toLocaleString()+" triples");
 console.log("  SHACL constraints on emitted filters "+s.shaclConstraints);
 console.log("  smoke tests on a clean checkout      11/11, zero install");
-console.log("  friction findings filed back         7");
+console.log("  friction findings filed back         7  (4 as upstream issues)");
 console.log("  licence                              MIT");
 '
 echo

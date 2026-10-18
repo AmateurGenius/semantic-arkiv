@@ -90,7 +90,7 @@ wrong answer.
 with `price_minor`, a legacy-migration case within one project. That makes it
 easy to read as historical cleanup.
 
-Measured live on a 9,000-row walk: **29 attribute names currently carry multiple
+Measured live on a 5,773-row walk: **20 attribute names currently carry multiple
 types across different projects on the same chain.**
 
 | attribute | observations | types |
@@ -127,10 +127,10 @@ widening idiom:
 
 Agents follow this and emit `entity_type`. Measured live:
 
-| Attribute | Observations (9,000-row walk) |
+| Attribute | Observations (5,773-row walk) |
 | --- | --- |
-| `type` | **5,425** |
-| `entity_type` | 185 |
+| `type` | **2,220** |
+| `entity_type` | 386 |
 
 ```text
 project = str('mandi_board_v1') AND entity_type = str('price_report')  -> 0

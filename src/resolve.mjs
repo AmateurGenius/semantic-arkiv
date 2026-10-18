@@ -111,7 +111,7 @@ export function resolve(intent, vocab) {
 
   // ---- 2. discriminator: `entity_type` OR a bare `type`, per project ----
   // Most real projects discriminate on a bare `type` attribute, not
-  // `entity_type` (measured: `type` 5425 observations vs `entity_type` 185).
+  // `entity_type` (measured live: `type` is 5.8× more common than `entity_type`).
   // Emitting `entity_type` against such a project is a silent zero.
   const pSchema = resolved.project ? vocab.projectSchemas.get(resolved.project) : null;
   const discAttr = pSchema?.discriminator ?? 'entity_type';
