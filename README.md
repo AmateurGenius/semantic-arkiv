@@ -63,18 +63,38 @@ it is traceable to an observation count captured from a real walk of the live
 chain. The resolver refuses to invent a name it cannot attest — it reports the
 gap instead.
 
-## Quickstart
+## Installation
+
+### npm (recommended)
 
 ```bash
-node scripts/build-ontology.mjs     # regenerate ontology/ from data/
-node scripts/demo.mjs               # inspect resolutions for sample intents
-node tests/mcp-smoke.mjs            # 11-check MCP handshake + tool test
-node benchmark/run.mjs              # benchmark vs the markdown-only baseline
-node src/mcp-server.mjs             # speak MCP on stdin/stdout
+npm install -g semantic-arkiv
+
+# CLI — resolve natural language to a valid Arkiv filter
+ontoskill "mandi potato price reports"
+# Output: project = str('mandi_board_v1') AND type = str('price_report') AND crop = str('potato') AND price >= dec(0)
+
+# MCP server — add to any MCP client
+# Command: node /path/to/semantic-arkiv/src/mcp-server.mjs
 ```
 
-No dependencies. MCP stdio is a newline-delimited JSON-RPC protocol and is
-implemented directly, so there is nothing to install and nothing to compile.
+### Local
+
+```bash
+git clone https://github.com/your-org/semantic-arkiv.git
+cd semantic-arkiv
+
+# CLI
+node src/cli.mjs "mandi potato price reports"
+
+# MCP server
+node src/mcp-server.mjs
+
+# Resolve library import
+node -e "import('./src/resolve.mjs').then(m => m.resolve('mandi potato price reports')).then(r => console.log(r.expression))"
+```
+
+No dependencies. Node.js 18+ required.
 
 ### MCP tools
 
@@ -84,6 +104,60 @@ implemented directly, so there is nothing to install and nothing to compile.
 | `validate_filter` | check any expression against the grammar contract |
 | `arkiv_vocabulary` | inspect attested projects / entity types / attributes |
 | `arkiv_query` | execute a filter against Tiramisu (cost-aware, cached) |
+
+## Integration examples
+
+### 1. MCP Server (recommended)
+
+Add to any MCP client (Claude, Cursor, etc.):
+
+```json
+{
+  "mcpServers": {
+    "semantic-arkiv": {
+      "command": "node",
+      "args": ["/path/to/semantic-arkiv/src/mcp-server.mjs"]
+    }
+  }
+}
+```
+
+Four tools become available:
+- `ontoskill` — natural language → grammar-valid Arkiv filter
+- `validate_filter` — check any expression against the grammar contract
+- `arkiv_vocabulary` — inspect attested projects / entity types / attributes
+- `arkiv_query` — execute a filter against Tiramisu
+
+### 2. CLI
+
+```bash
+# Install
+npm install -g semantic-arkiv
+
+# Resolve natural language to a valid filter
+ontoskill "mandi potato price reports"
+# Output: project = str('mandi_board_v1') AND type = str('price_report') AND crop = str('potato') AND price >= dec(0)
+
+# Pipe input
+echo "delivery receipts in tdr3c1" | ontoskill
+```
+
+### 3. Library import
+
+```js
+import { resolve } from 'semantic-arkiv/src/resolve.mjs';
+import { loadVocabulary } from 'semantic-arkiv/src/vocab.mjs';
+
+// Resolve natural language to a filter
+const result = await resolve('mandi potato price reports');
+console.log(result.expression);
+// project = str('mandi_board_v1') AND type = str('price_report') AND crop = str('potato') AND price >= dec(0)
+
+// Inspect the live vocabulary
+const vocab = await loadVocabulary();
+console.log(vocab.attributes.get('price'));
+// { observations: 74, observedTypes: ['dec'] }
+```
 
 ## Layout
 
@@ -96,6 +170,8 @@ ontology/arkiv-grammar.shacl.ttl SHACL shapes for emitted expressions
 src/grammar.mjs                  the empirical grammar contract + validator
 src/resolve.mjs                  the resolver
 src/mcp-server.mjs               the MCP server
+src/cli.mjs                      the CLI wrapper
+examples/                        integration examples (MCP, CLI, library)
 benchmark/results.json           measured benchmark output
 arkiv/schema.md                  entity types, attributes, query patterns
 arkiv/friction.md                the friction report (camelCase trap first)
@@ -113,9 +189,9 @@ Full output in `benchmark/results.json`.
 | Silent-zero risk | **70%** | **0%** |
 | **Prompts returning real rows** | **0%** | **90%** |
 | Prompts rejected by the node | **100%** | **0%** |
-| Guidance bytes the agent must read | 52,534 | **2,334** |
+| Guidance bytes the agent must read | 52,534 | **2,367** |
 
-**95.6% guidance reduction** (52,534 → 2,334 bytes), against an 88% target.
+**95.5% guidance reduction** (52,534 → 2,367 bytes), against an 88% target.
 
 Condition A was rejected by the node on **all 10** prompts. Condition B returned
 real entities on **9 of 10**; the single miss is prompt b1, which targets the

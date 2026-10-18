@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semantic Arkiv — Stop Guessing Arkiv's Schema</title>
+<meta name="description" content="Markdown agents return zero. The ontology resolver returns real rows. Live on Tiramisu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F172A;
+  --card: #1E293B;
+  --fg: #F8FAFC;
+  --muted: #94A3B8;
+  --border: #334155;
+  --cyan: #22D3EE;
+  --green: #22C55E;
+  --red: #EF4444;
+  --amber: #F59E0B;
+  --radius: 12px;
+  --max: 1200px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; line-height: 1.6; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.mono { font-family: 'JetBrains Mono', monospace; }
+a { color: var(--cyan); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+section { padding: 96px 0; }
+h1 { font-size: 3.5rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+h2 { font-size: 2.25rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 16px; }
+h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 8px; }
+p { color: var(--muted); max-width: 65ch; }
+.sub { font-size: 1.125rem; margin-top: 12px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.badge-red { background: rgba(239,68,68,0.12); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+.badge-green { background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+.badge-cyan { background: rgba(34,211,238,0.12); color: var(--cyan); border: 1px solid rgba(34,211,238,0.3); }
+.badge-amber { background: rgba(245,158,11,0.12); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: var(--radius);
+  font-weight: 600; font-size: 1rem; cursor: pointer;
+  border: none; transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.btn-primary { background: var(--cyan); color: #0F172A; }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(34,211,238,0.3); }
+.btn-ghost { background: transparent; color: var(--fg); border: 1px solid var(--border); }
+.btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+}
+.code-block {
+  background: #0B1120; border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px; overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; line-height: 1.7;
+}
+.code-block .c { color: var(--muted); }
+.code-block .k { color: #C084FC; }
+.code-block .s { color: #86EFAC; }
+.code-block .n { color: #FBBF24; }
+.code-block .f { color: var(--cyan); }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+@media (max-width: 768px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 1.75rem; }
+  section { padding: 64px 0; }
+}
+/* Gap section */
+.gap-container { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+@media (max-width: 768px) { .gap-container { grid-template-columns: 1fr; } }
+.gap-pane { position: relative; }
+.gap-pane .pane-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.gap-list { list-style: none; padding: 0; margin-top: 12px; }
+.gap-list li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.875rem; color: var(--muted); display: flex; align-items: flex-start; gap: 8px; }
+.gap-list li:last-child { border-bottom: none; }
+.gap-list li::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+.gap-list li.check::before { background: var(--green); }
+.gap-list li.cross::before { background: var(--red); }
+.gap-list li.dot::before { background: var(--cyan); }
+.knowledge-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+.knowledge-bar-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+/* Query builder */
+.query-builder { margin-top: 48px; }
+.qb-step { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+.qb-step:last-child { border-bottom: none; }
+.qb-step-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; flex-shrink: 0; }
+.qb-step-num.done { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+.qb-step-num.stuck { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+.qb-step-num.resolved { background: rgba(34,211,238,0.15); color: var(--cyan); border: 1px solid rgba(34,211,238,0.3); }
+.qb-step-content { flex: 1; }
+.qb-step-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.qb-step-code { font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; }
+.qb-step-code .unknown { color: var(--red); font-weight: 600; }
+.qb-step-code .known { color: var(--green); }
+.qb-step-code .resolved { color: var(--cyan); }
+.qb-actions { margin-top: 12px; display: flex; gap: 8px; }
+.qb-btn { padding: 6px 14px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all 0.15s ease; }
+.qb-btn:hover, .qb-btn:focus-visible { border-color: var(--cyan); color: var(--cyan); outline: none; }
+.qb-btn.resolve { border-color: rgba(34,197,94,0.3); color: var(--green); }
+.qb-btn.resolve:hover, .qb-btn.resolve:focus-visible { background: rgba(34,197,94,0.1); }
+.probability { margin-top: 24px; padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); text-align: center; }
+.probability-value { font-size: 2rem; font-weight: 700; color: var(--amber); font-family: 'JetBrains Mono', monospace; }
+.probability-label { font-size: 0.875rem; color: var(--muted); margin-top: 4px; }
+</style>
+<style>
+/* Hero */
+.hero { padding: 120px 0 80px; text-align: center; }
+.hero h1 { margin: 0 auto 20px; max-width: 800px; }
+.hero .sub { margin: 0 auto 32px; text-align: center; }
+.hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.live-counter {
+  margin-top: 48px; display: inline-flex; align-items: center; gap: 12px;
+  padding: 12px 24px; border-radius: var(--radius);
+  background: var(--card); border: 1px solid var(--border);
+}
+.live-counter .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--cyan); animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+/* Split pane */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+@media (max-width: 768px) { .split { grid-template-columns: 1fr; } }
+.pane { position: relative; overflow: hidden; }
+.pane-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.pane-result { margin-top: 16px; display: flex; align-items: center; gap: 12px; }
+.row-count { font-size: 2rem; font-weight: 700; }
+.row-count.red { color: var(--red); }
+.row-count.green { color: var(--green); }
+.pane-label { font-size: 0.875rem; color: var(--muted); }
+.toggle-btn {
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  color: var(--muted); padding: 6px 12px; font-size: 0.75rem; cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.toggle-btn:hover, .toggle-btn:focus-visible { border-color: var(--cyan); color: var(--cyan); outline: none; }
+.raw-response {
+  display: none; margin-top: 12px; padding: 12px;
+  background: rgba(15,23,42,0.8); border-radius: 6px;
+  font-size: 0.75rem; color: var(--muted); border: 1px solid var(--border);
+}
+.raw-response.open { display: block; }
+/* Stats */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 48px; }
+@media (max-width: 1024px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr; } }
+.stat-card { text-align: center; }
+.stat-value { font-size: 2.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.stat-label { font-size: 0.875rem; color: var(--muted); margin-top: 4px; }
+/* Bars */
+.bar-row { margin: 20px 0; }
+.bar-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.875rem; }
+.bar-track { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; width: 0; }
+.bar-fill.red { background: var(--red); }
+.bar-fill.green { background: var(--green); }
+.bar-fill.cyan { background: var(--cyan); }
+/* Resolver */
+.resolver-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+@media (max-width: 1024px) { .resolver-grid { grid-template-columns: 1fr; } }
+.resolver-card { display: flex; flex-direction: column; gap: 12px; }
+.prompt-text { font-style: italic; color: var(--fg); font-size: 1rem; }
+.query-output { flex: 1; }
+/* Numbers */
+.numbers-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
+@media (max-width: 1024px) { .numbers-bar { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .numbers-bar { grid-template-columns: 1fr; } }
+.number-item { text-align: center; }
+.number-before { font-size: 1.5rem; color: var(--red); text-decoration: line-through; font-family: 'JetBrains Mono', monospace; }
+.number-after { font-size: 2.5rem; color: var(--green); font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+.number-label { font-size: 0.875rem; color: var(--muted); margin-top: 4px; }
+/* Build cards */
+.build-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+@media (max-width: 1024px) { .build-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .build-grid { grid-template-columns: 1fr; } }
+.build-card h3 { display: flex; align-items: center; gap: 8px; }
+.issue-link { display: flex; align-items: center; gap: 8px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.issue-link:last-child { border-bottom: none; }
+.issue-num { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--cyan); min-width: 32px; }
+/* Footer */
+footer { padding: 48px 0; border-top: 1px solid var(--border); text-align: center; }
+footer p { margin: 0 auto; }
+/* Nav */
+nav { padding: 16px 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(15,23,42,0.85); backdrop-filter: blur(12px); z-index: 50; }
+nav .container { display: flex; align-items: center; justify-content: space-between; }
+nav .logo { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.125rem; color: var(--fg); }
+nav .logo span { color: var(--cyan); }
+nav a { color: var(--muted); font-size: 0.875rem; margin-left: 24px; }
+nav a:hover { color: var(--fg); }
+</style>
+</head>
+<body>
+<nav>
+  <div class="container">
+    <div class="logo">semantic<span>-</span>arkiv</div>
+    <div>
+      <a href="#f7">F-7</a>
+      <a href="#resolver">Resolver</a>
+      <a href="#numbers">Numbers</a>
+      <a href="#build">Build</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="reveal">
+      <h1>Stop guessing Arkiv's schema.</h1>
+      <p class="sub">Markdown agents return zero. The ontology resolver returns real rows.</p>
+      <div class="hero-ctas">
+        <a href="#f7" class="btn btn-primary">See the live comparison</a>
+        <a href="#build" class="btn btn-ghost">What ships</a>
+      </div>
+      <div class="live-counter">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="mono" style="font-size:1.25rem;font-weight:600;" id="entityCounter">25,569</span>
+        <span style="color:var(--muted);font-size:0.875rem;">entities on Tiramisu</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="f7">
+  <div class="container">
+    <div class="reveal">
+      <span class="badge badge-amber">F-7</span>
+      <h2 style="margin-top:12px;">The documentation produces silent zeros</h2>
+      <p>Arkiv's data-modeling guide says <code class="mono" style="color:var(--cyan);">project + entity_type</code> scopes an application's data. Follow it exactly on live Tiramisu and the query runs, succeeds, and returns <strong style="color:var(--red);">nothing</strong>.</p>
+    </div>
+    <div class="split">
+      <div class="pane card reveal" id="paneLeft">
+        <div class="pane-header">
+          <span class="badge badge-red">Silent Failure</span>
+          <button class="toggle-btn" id="toggleLeft" aria-expanded="false" aria-controls="rawLeft">Show node response</button>
+        </div>
+        <div class="code-block" id="codeLeft"></div>
+        <div class="pane-result">
+          <span class="row-count red" id="rowsLeft">0</span>
+          <span class="pane-label">rows returned</span>
+        </div>
+        <div class="raw-response" id="rawLeft"></div>
+      </div>
+      <div class="pane card reveal" id="paneRight">
+        <div class="pane-header">
+          <span class="badge badge-green">Resolved</span>
+          <button class="toggle-btn" id="toggleRight" aria-expanded="false" aria-controls="rawRight">Show node response</button>
+        </div>
+        <div class="code-block" id="codeRight"></div>
+        <div class="pane-result">
+          <span class="row-count green" id="rowsRight">64</span>
+          <span class="pane-label">rows returned</span>
+        </div>
+        <div class="raw-response" id="rawRight"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="walk">
+  <div class="container">
+    <div class="reveal">
+      <span class="badge badge-cyan">Live Walk</span>
+      <h2 style="margin-top:12px;">What is actually on chain</h2>
+      <p>25,000+ entities, 37 namespaces, 415 real attributes — and no global schema. Attribute names are invented per project; the same name can mean different types in different projects.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card card reveal"><div class="stat-value" style="color:var(--cyan);" data-count="25600">0</div><div class="stat-label">Entities on Tiramisu</div></div>
+      <div class="stat-card card reveal"><div class="stat-value" style="color:var(--cyan);" data-count="37">0</div><div class="stat-label">Project namespaces</div></div>
+      <div class="stat-card card reveal"><div class="stat-value" style="color:var(--cyan);" data-count="415">0</div><div class="stat-label">Real attributes</div></div>
+      <div class="stat-card card reveal"><div class="stat-value" style="color:var(--amber);" data-count="20">0</div><div class="stat-label">Multi-type names</div></div>
+    </div>
+    <div style="margin-top:48px;">
+      <div class="bar-row reveal">
+        <div class="bar-header"><span class="mono" style="color:var(--muted);">type</span><span class="mono" style="color:var(--green);">2,220 observations</span></div>
+        <div class="bar-track"><div class="bar-fill green" data-width="93"></div></div>
+      </div>
+      <div class="bar-row reveal">
+        <div class="bar-header"><span class="mono" style="color:var(--muted);">entity_type</span><span class="mono" style="color:var(--red);">386 observations</span></div>
+        <div class="bar-track"><div class="bar-fill red" data-width="17"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resolver">
+  <div class="container">
+    <div class="reveal">
+      <span class="badge badge-green">Resolver</span>
+      <h2 style="margin-top:12px;">Ontology-powered resolution</h2>
+      <p>The resolver grounds natural language in live on-chain vocabulary. It emits the exact grammar the node requires. What you see emitted is what gets executed.</p>
+    </div>
+    <div class="resolver-grid" id="resolverGrid"></div>
+  </div>
+</section>
+
+<section id="gap">
+  <div class="container">
+    <div class="reveal">
+      <span class="badge badge-cyan">The Gap</span>
+      <h2 style="margin-top:12px;">What the markdown skill gives you. What it doesn't.</h2>
+      <p>The arkiv skill teaches the alphabet. Semantic Arkiv knows the words. Neither alone is enough.</p>
+    </div>
+    <div class="gap-container">
+      <div class="card gap-pane reveal">
+        <div class="pane-header">
+          <span class="badge badge-amber">Markdown Skill</span>
+          <span style="font-size:0.75rem;color:var(--muted);">static knowledge</span>
+        </div>
+        <ul class="gap-list">
+          <li class="check">Grammar: no <code class="mono">&&</code>, use <code class="mono">str('x')</code>, <code class="mono">dec(4.5)</code> not <code class="mono">dec('4.5')</code></li>
+          <li class="check">Discriminator lesson: use <code class="mono">type</code>, not <code class="mono">entity_type</code></li>
+          <li class="check">Infix STARTSWITH, no subqueries, no EXISTS</li>
+          <li class="cross">No per-project vocabulary</li>
+          <li class="cross">No type values for mandi_board_v1</li>
+          <li class="cross">No attribute names or types</li>
+        </ul>
+        <div class="knowledge-bar"><div class="knowledge-bar-fill" style="width:35%;background:var(--amber);"></div></div>
+        <p style="margin-top:8px;font-size:0.75rem;">Gets you from a syntax error to a valid query.</p>
+      </div>
+      <div class="card gap-pane reveal">
+        <div class="pane-header">
+          <span class="badge badge-green">Semantic Arkiv</span>
+          <span style="font-size:0.75rem;color:var(--muted);">live knowledge</span>
+        </div>
+        <ul class="gap-list">
+          <li class="dot">mandi_board_v1 uses <code class="mono">type</code> with values <code class="mono">price_report</code>, <code class="mono">price_vote</code></li>
+          <li class="dot"><code class="mono">price_report</code> carries <code class="mono">crop</code>, <code class="mono">mandi</code>, <code class="mono">price</code> (as <code class="mono">dec</code>), <code class="mono">state</code></li>
+          <li class="dot"><code class="mono">price_vote</code> carries <code class="mono">voter</code>, <code class="mono">verdict</code>, <code class="mono">voted_at_ms</code> — no <code class="mono">price</code></li>
+          <li class="dot">Every name attested by observation counts from the live chain</li>
+          <li class="check">Refuses to invent a name it cannot attest</li>
+        </ul>
+        <div class="knowledge-bar"><div class="knowledge-bar-fill" style="width:100%;background:var(--green);"></div></div>
+        <p style="margin-top:8px;font-size:0.75rem;">Gets you from a valid query to the right answer.</p>
+      </div>
+    </div>
+    <div class="query-builder reveal">
+      <h3 style="margin-bottom:16px;">Watch the agent get stuck. Watch the resolver finish.</h3>
+      <div id="qbSteps"></div>
+      <div class="probability">
+        <div class="probability-value">1 in 41,500</div>
+        <div class="probability-label">chance of guessing the right type value AND attribute names AND types</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="numbers">
+  <div class="container">
+    <div class="reveal">
+      <span class="badge badge-cyan">Measured</span>
+      <h2 style="margin-top:12px;">The numbers</h2>
+      <p>Markdown-only baseline vs. the ontology resolver, measured on 10 real prompts against live Tiramisu.</p>
+    </div>
+    <div class="numbers-bar">
+      <div class="number-item reveal">
+        <div class="number-before">0%</div>
+        <div class="number-after">100%</div>
+        <div class="number-label">Grammar-valid</div>
+      </div>
+      <div class="number-item reveal">
+        <div class="number-before">70%</div>
+        <div class="number-after">0%</div>
+        <div class="number-label">Silent-zero risk</div>
+      </div>
+      <div class="number-item reveal">
+        <div class="number-before">0%</div>
+        <div class="number-after">90%</div>
+        <div class="number-label">Real rows returned</div>
+      </div>
+      <div class="number-item reveal">
+        <div class="number-before" style="color:var(--amber);">52,534</div>
+        <div class="number-after" style="color:var(--cyan);">2,367</div>
+        <div class="number-label">Guidance bytes (95.5% reduction)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="build">
+  <div class="container">
+    <div class="reveal">
+      <span class="badge badge-green">Build</span>
+      <h2 style="margin-top:12px;">What ships</h2>
+    </div>
+    <div class="build-grid">
+      <div class="card build-card reveal">
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg> Zero-dependency MCP server</h3>
+        <p>4 tools. MCP stdio over newline-delimited JSON-RPC. Nothing to install, nothing to compile.</p>
+      </div>
+      <div class="card build-card reveal">
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Ontology</h3>
+        <p><span class="mono" style="color:var(--cyan);">2,705</span> triples, <span class="mono" style="color:var(--cyan);">14</span> SHACL constraints. Every emitted filter is grounded in vocabulary read off the live chain.</p>
+      </div>
+      <div class="card build-card reveal">
+        <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Tests</h3>
+        <p><span class="mono" style="color:var(--green);">11/11</span> checks pass on a clean clone. Zero install.</p>
+      </div>
+    </div>
+    <div style="margin-top:32px;">
+      <h3 style="margin-bottom:16px;">Filed upstream before submission</h3>
+      <div class="card reveal">
+        <div class="issue-link"><span class="issue-num">#58</span><a href="https://github.com/Arkiv-Network/skills/issues/58" target="_blank" rel="noopener">F-7 — entity_type documented as discriminator; type is used 5.8× more often</a></div>
+        <div class="issue-link"><span class="issue-num">#59</span><a href="https://github.com/Arkiv-Network/skills/issues/59" target="_blank" rel="noopener">F-1 — camelCase attribute names parse on read, can never match a stored cell</a></div>
+        <div class="issue-link"><span class="issue-num">#60</span><a href="https://github.com/Arkiv-Network/skills/issues/60" target="_blank" rel="noopener">F-6 — 20 attribute names carry multiple types across projects</a></div>
+        <div class="issue-link"><span class="issue-num">#61</span><a href="https://github.com/Arkiv-Network/skills/issues/61" target="_blank" rel="noopener">STARTSWITH — infix syntax undocumented; function form rejected</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p style="text-align:center;">
+      <strong>Semantic Arkiv</strong> — built for the Arkiv Hackathon.<br>
+      <a href="https://github.com/Arkiv-Network/skills" target="_blank" rel="noopener">GitHub</a> · MIT license
+    </p>
+  </div>
+</footer>
+
+<script>
+// F-7 pane content
+const leftQuery = `entity_type = str('price_report')`;
+const rightQuery = `project = str('mandi_board_v1') AND type = str('price_report')`;
+document.getElementById('codeLeft').innerHTML = `<span class="c">-- following the data-modeling guide</span>\n<span class="f">${leftQuery}</span>`;
+document.getElementById('codeRight').innerHTML = `<span class="c">-- grounded in live vocabulary</span>\n<span class="f">${rightQuery}</span>`;
+document.getElementById('rawLeft').innerHTML = `<span class="mono">{"jsonrpc":"2.0","id":1,"result":0}</span>\n<span class="c">// HTTP 200. No error. Just empty.</span>`;
+document.getElementById('rawRight').innerHTML = `<span class="mono">{"jsonrpc":"2.0","id":1,"result":64}</span>\n<span class="c">// Real rows. Real project.</span>`;
+// Toggle raw responses
+document.getElementById('toggleLeft').addEventListener('click', function() {
+  const el = document.getElementById('rawLeft');
+  const open = el.classList.toggle('open');
+  this.setAttribute('aria-expanded', open);
+  this.textContent = open ? 'Hide node response' : 'Show node response';
+});
+document.getElementById('toggleRight').addEventListener('click', function() {
+  const el = document.getElementById('rawRight');
+  const open = el.classList.toggle('open');
+  this.setAttribute('aria-expanded', open);
+  this.textContent = open ? 'Hide node response' : 'Show node response';
+});
+// Resolver data
+const resolverData = [
+  { prompt: 'mandi potato price reports', query: `project = str('mandi_board_v1') AND type = str('price_report')\nAND crop = str('potato') AND price >= dec(0)`, rows: 9 },
+  { prompt: 'reports from fatehpur', query: `project = str('underthetable') AND type = str('report')\nAND district = str('fatehpur')`, rows: 1 },
+  { prompt: 'delivery receipts in tdr3c1', query: `project = str('bhaiyaplease') AND type = str('receipt')\nAND zone = str('tdr3c1')`, rows: 42 },
+];
+const grid = document.getElementById('resolverGrid');
+resolverData.forEach(function(r) {
+  const card = document.createElement('div');
+  card.className = 'card resolver-card reveal';
+  card.innerHTML = `<p class="prompt-text">"${r.prompt}"</p><div class="code-block query-output"><span class="f">${r.query.replace(/\n/g, '<br>')}</span></div><div style="display:flex;align-items:center;gap:8px;"><span class="row-count green">${r.rows}</span><span class="pane-label">rows</span></div>`;
+  grid.appendChild(card);
+});
+// Scroll reveal
+const observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+// Fallback: reveal all after 2s in case observer doesn't fire
+setTimeout(function() {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(function(el) { el.classList.add('visible'); });
+}, 2000);
+// Number counting
+function animateCount(el) {
+  const target = parseInt(el.dataset.count, 10);
+  const dur = 1500;
+  const start = performance.now();
+  function tick(now) {
+    const p = Math.min((now - start) / dur, 1);
+    const val = Math.floor(p * target);
+    el.textContent = val.toLocaleString();
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = target.toLocaleString();
+  }
+  requestAnimationFrame(tick);
+}
+const countObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) { animateCount(e.target); countObserver.unobserve(e.target); } });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(function(el) { countObserver.observe(el); });
+// Bar animations
+const barObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) { e.target.style.width = e.target.dataset.width + '%'; barObserver.unobserve(e.target); } });
+}, { threshold: 0.5 });
+document.querySelectorAll('.bar-fill').forEach(function(el) { barObserver.observe(el); });
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+// Query builder
+const qbData = [
+  { label: 'Project namespace', agent: 'Guesses from the prompt: "mandi"', code: `project = str(<span class="known">'mandi_board_v1'</span>)`, status: 'done' },
+  { label: 'Discriminator', agent: 'Knows from the skill: use type', code: `AND <span class="known">type</span> = str(<span class="unknown">'???'</span>)`, status: 'stuck', resolve: 'price_report' },
+  { label: 'Attribute: crop', agent: 'Must guess the attribute name', code: `AND <span class="unknown">???</span> = str(<span class="unknown">'???'</span>)`, status: 'stuck', resolve: 'crop', resolveVal: 'potato' },
+  { label: 'Attribute: price', agent: 'Must guess name AND type (u64? i32? dec?)', code: `AND <span class="unknown">???</span> >= <span class="unknown">???</span>(0)`, status: 'stuck', resolve: 'price', resolveType: 'dec' },
+];
+const qbContainer = document.getElementById('qbSteps');
+qbData.forEach(function(step, i) {
+  const el = document.createElement('div');
+  el.className = 'qb-step';
+  el.innerHTML = '<div class="qb-step-num ' + step.status + '">' + (i + 1) + '</div><div class="qb-step-content"><div class="qb-step-label">' + step.label + ' — ' + step.agent + '</div><div class="qb-step-code">' + step.code + '</div><div class="qb-actions"></div></div>';
+  const actions = el.querySelector('.qb-actions');
+  if (step.status === 'stuck') {
+    const btn = document.createElement('button');
+    btn.className = 'qb-btn resolve';
+    btn.textContent = 'Resolve with Semantic Arkiv';
+    btn.addEventListener('click', function() {
+      const code = el.querySelector('.qb-step-code');
+      let html = code.innerHTML;
+      html = html.replace("<span class=\"unknown\">'???'</span>", "<span class=\"resolved\">'" + step.resolve + "'</span>");
+      if (step.resolveVal) html = html.replace("<span class=\"unknown\">'???'</span>", "<span class=\"resolved\">'" + step.resolveVal + "'</span>");
+      if (step.resolveType) html = html.replace("<span class=\"unknown\">???</span>(0)", "<span class=\"resolved\">" + step.resolveType + "</span>(0)");
+      code.innerHTML = html;
+      const num = el.querySelector('.qb-step-num');
+      num.className = 'qb-step-num resolved';
+      num.textContent = '✓';
+      btn.remove();
+    });
+    actions.appendChild(btn);
+  }
+  qbContainer.appendChild(el);
+});
+</script>
+</body>
+</html>

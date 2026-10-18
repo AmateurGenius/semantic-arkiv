@@ -5,7 +5,8 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "ontoskill": "src/mcp-server.mjs"
+    "ontoskill": "src/mcp-server.mjs",
+    "semantic-arkiv": "src/cli.mjs"
   },
   "scripts": {
     "probe": "node scripts/probe.mjs",
